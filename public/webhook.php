@@ -55,7 +55,7 @@ class WebhookDeployer {
         chdir($this->projectDir);
         
         // Execute deploy script
-        $output = shell_exec('php deploy.php 2>&1');
+        $output = shell_exec('php /var/www/laravel-app/public/deploy.php 2>&1');
         
         $this->log("✅ Deployment completed\n" . $output);
         $this->respond(200, 'Deployment successful');
