@@ -19,23 +19,23 @@
         </div>
         <div class="bg-white rounded-2xl shadow-2xl p-8 border border-orange-100">
             <h2 class="text-2xl font-bold mb-6 text-center" style="color: #5A3A1A;">Buat Akun Anda</h2>
-            @if($errors->any())
+            <?php if($errors->any()): ?>
             <div class="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg mb-4">
                 <div class="font-semibold mb-2"><i class="fas fa-exclamation-circle mr-2"></i>Terdapat kesalahan:</div>
                 <ul class="list-disc list-inside space-y-1 text-sm">
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
+                    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
             </div>
-            @endif
-            <form method="POST" action="{{ route('register') }}" autocomplete="off">
-                @csrf
+            <?php endif; ?>
+            <form method="POST" action="<?php echo e(route('register')); ?>" autocomplete="off">
+                <?php echo csrf_field(); ?>
                 <div class="mb-4">
                     <label class="block font-semibold mb-2" style="color: #5A3A1A;">
                         <i class="fas fa-user mr-2" style="color: #D2691E;"></i>Username
                     </label>
-                    <input type="text" name="username" value="" required autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition" style="border-color: #E8C5A5; color: #5A3A1A;" onfocus="this.style.borderColor='#D2691E'; this.removeAttribute('readonly');" onblur="this.style.borderColor='#E8C5A5'" placeholder="Masukkan username">
+                    <input type="text" name="username" value="<?php echo e(old('username')); ?>" required autocomplete="off" class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition" style="border-color: #E8C5A5; color: #5A3A1A;" onfocus="this.style.borderColor='#D2691E'" onblur="this.style.borderColor='#E8C5A5'" placeholder="Masukkan username">
                 </div>
                 <div class="mb-4">
                     <label class="block font-semibold mb-2" style="color: #5A3A1A;">
@@ -60,12 +60,13 @@
                 </button>
             </form>
             <div class="mt-6 text-center">
-                <p class="text-amber-700">Sudah punya akun? <a href="{{ route('login') }}" class="font-bold hover:underline" style="color: #D2691E;">Login disini</a></p>
+                <p class="text-amber-700">Sudah punya akun? <a href="<?php echo e(route('login')); ?>" class="font-bold hover:underline" style="color: #D2691E;">Login disini</a></p>
             </div>
         </div>
         <div class="text-center mt-6 text-amber-700">
-            <p class="text-sm">&copy; {{ date('Y') }} RoomBook. All rights reserved.</p>
+            <p class="text-sm">&copy; <?php echo e(date('Y')); ?> RoomBook. All rights reserved.</p>
         </div>
     </div>
 </body>
 </html>
+<?php /**PATH C:\Users\M S I\P3-UKK\resources\views\auth\register.blade.php ENDPATH**/ ?>

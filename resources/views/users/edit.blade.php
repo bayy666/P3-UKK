@@ -40,6 +40,7 @@
                                name="nama" 
                                value="{{ old('nama', $user->username) }}" 
                                placeholder="Masukkan nama lengkap"
+                               autocomplete="off"
                                required>
                         @error('nama')
                             <p class="text-red-500 text-sm mt-1">
@@ -60,6 +61,7 @@
                                name="email" 
                                value="{{ old('email', $user->email) }}" 
                                placeholder="nama@email.com"
+                               autocomplete="off"
                                required>
                         @error('email')
                             <p class="text-red-500 text-sm mt-1">
@@ -80,6 +82,7 @@
                                name="username" 
                                value="{{ old('username', $user->username) }}" 
              placeholder="nama pengguna"
+                               autocomplete="off"
                                required>
                         @error('username')
                             <p class="text-red-500 text-sm mt-1">
@@ -99,7 +102,8 @@
                                id="no_telepon" 
                                name="no_telepon" 
                                value="{{ old('no_telepon', $user->no_telepon) }}" 
-                               placeholder="08xxxxxxxxxx">
+                               placeholder="08xxxxxxxxxx"
+                               autocomplete="off">
                         @error('no_telepon')
                             <p class="text-red-500 text-sm mt-1">
                                 <i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}

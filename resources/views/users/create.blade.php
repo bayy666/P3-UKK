@@ -37,8 +37,10 @@
                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none transition-all @error('nama') border-red-500 @enderror" 
                                id="nama" 
                                name="nama" 
-                               value="{{ old('nama') }}" 
+                               value="" 
                                placeholder="Masukkan nama lengkap"
+                               autocomplete="off"
+                               readonly onfocus="this.removeAttribute('readonly');"
                                required>
                         @error('nama')
                             <p class="text-red-500 text-sm mt-1">
@@ -57,8 +59,10 @@
                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none transition-all @error('email') border-red-500 @enderror" 
                                id="email" 
                                name="email" 
-                               value="{{ old('email') }}" 
+                               value="" 
                                placeholder="nama@email.com"
+                               autocomplete="off"
+                               readonly onfocus="this.removeAttribute('readonly');"
                                required>
                         @error('email')
                             <p class="text-red-500 text-sm mt-1">
@@ -77,8 +81,10 @@
                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none transition-all @error('username') border-red-500 @enderror" 
                                id="username" 
                                name="username" 
-                               value="{{ old('username') }}" 
+                               value="" 
              placeholder="nama pengguna"
+                               autocomplete="off"
+                               readonly onfocus="this.removeAttribute('readonly');"
                                required>
                         @error('username')
                             <p class="text-red-500 text-sm mt-1">
@@ -97,7 +103,9 @@
                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none transition-all @error('no_telepon') border-red-500 @enderror" 
                                id="no_telepon" 
                                name="no_telepon" 
-                               value="{{ old('no_telepon') }}" 
+                               value="" 
+                               autocomplete="off"
+                               readonly onfocus="this.removeAttribute('readonly');"
                                placeholder="08xxxxxxxxxx">
                         @error('no_telepon')
                             <p class="text-red-500 text-sm mt-1">
@@ -139,6 +147,8 @@
                                id="password" 
                                name="password" 
                                placeholder="Minimal 6 karakter"
+                               autocomplete="new-password"
+                               readonly onfocus="this.removeAttribute('readonly');"
                                required>
                         @error('password')
                             <p class="text-red-500 text-sm mt-1">

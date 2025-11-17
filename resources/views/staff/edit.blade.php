@@ -22,16 +22,16 @@
       <div class="space-y-4">
         <div>
           <label class="block text-sm font-medium text-gray-700">Nama Petugas</label>
-          <input type="text" name="nama_petugas" value="{{ old('nama_petugas', $petugas->nama_petugas) }}" class="mt-1 w-full border rounded px-3 py-2" required>
+          <input type="text" name="nama_petugas" value="{{ old('nama_petugas', $petugas->nama_petugas) }}" class="mt-1 w-full border rounded px-3 py-2" autocomplete="off" required>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-medium text-gray-700">Username</label>
-            <input type="text" name="username" value="{{ old('username', $petugas->user->username ?? '') }}" class="mt-1 w-full border rounded px-3 py-2" required>
+            <input type="text" name="username" value="{{ old('username', $petugas->user->username ?? '') }}" class="mt-1 w-full border rounded px-3 py-2" autocomplete="off" required>
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700">Email (opsional)</label>
-            <input type="email" name="email" value="{{ old('email', $petugas->user->email ?? '') }}" class="mt-1 w-full border rounded px-3 py-2">
+            <input type="email" name="email" value="{{ old('email', $petugas->user->email ?? '') }}" class="mt-1 w-full border rounded px-3 py-2" autocomplete="off">
           </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -46,7 +46,7 @@
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700">No. HP</label>
-          <input type="text" name="no_hp" value="{{ old('no_hp', $petugas->no_hp) }}" class="mt-1 w-full border rounded px-3 py-2" required>
+          <input type="text" name="no_hp" value="{{ old('no_hp', $petugas->no_hp) }}" class="mt-1 w-full border rounded px-3 py-2" autocomplete="off" required>
         </div>
       </div>
       <div class="flex justify-end gap-3 pt-4">
