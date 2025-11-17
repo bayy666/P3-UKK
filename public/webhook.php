@@ -9,7 +9,6 @@ class WebhookDeployer {
         try {
             $this->log('🔔 Webhook received');
             
-            // Security check
             if (!$this->verifySignature()) {
                 $this->log('❌ Signature verification failed');
                 $this->respond(403, 'Forbidden');
@@ -22,7 +21,6 @@ class WebhookDeployer {
                 return;
             }
             
-            // Execute deployment
             $this->deploy();
             
         } catch (Exception $e) {
@@ -52,28 +50,31 @@ class WebhookDeployer {
     private function deploy() {
         $this->log('🚀 Starting deployment');
         
+        // Change to project directory
         chdir($this->projectDir);
         
-        // Execute deploy commands dengan sudo untuk permission
+        // Set environment untuk www-data
+        putenv("HOME=/var/www");
+        
         $commands = [
-            'sudo -u www-data git pull origin main',
-            'sudo -u www-data composer install --no-dev --optimize-autoloader',
-            'sudo -u www-data php artisan migrate --force',
-            'sudo -u www-data php artisan config:cache',
-            'sudo -u www-data php artisan route:cache', 
-            'sudo -u www-data php artisan view:cache',
-            'sudo chmod -R 775 storage bootstrap/cache',
-            'sudo chown -R www-data:www-data .'
+            'git fetch --all',
+            'git reset --hard origin/main',
+            'composer install --no-dev --optimize-autoloader --no-scripts',
+            'php artisan migrate --force',
+            'php artisan config:cache',
+            'php artisan route:cache', 
+            'php artisan view:cache'
         ];
         
         $output = "";
         foreach ($commands as $cmd) {
             $this->log("Executing: $cmd");
-            $result = shell_exec("$cmd 2>&1");
+            $result = shell_exec("sudo -u www-data $cmd 2>&1");
             $output .= "=== $cmd ===\n$result\n";
+            $this->log("Result: " . substr($result, 0, 100));
         }
         
-        $this->log("✅ Deployment completed\n" . $output);
+        $this->log("✅ Deployment completed");
         $this->respond(200, 'Deployment successful');
     }
     
