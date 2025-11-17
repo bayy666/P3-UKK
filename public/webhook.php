@@ -1,7 +1,7 @@
 <?php
 
 class WebhookDeployer {
-    private $secret = 'your-github-webhook-secret';
+    private $secret = 'aku-suka-rama-rudi';
     private $projectDir = '/var/www/laravel-app';
     private $logFile = '/var/log/webhook-deploy.log';
     
