@@ -54,15 +54,16 @@ class WebhookDeployer {
         
         chdir($this->projectDir);
         
-        // Execute deploy commands directly (tanpa file deploy.php)
+        // Execute deploy commands dengan sudo untuk permission
         $commands = [
-            'git pull origin main',
-            'composer install --no-dev --optimize-autoloader',
-            'php artisan migrate --force',
-            'php artisan config:cache',
-            'php artisan route:cache', 
-            'php artisan view:cache',
-            'chmod -R 755 storage bootstrap/cache'
+            'sudo -u www-data git pull origin main',
+            'sudo -u www-data composer install --no-dev --optimize-autoloader',
+            'sudo -u www-data php artisan migrate --force',
+            'sudo -u www-data php artisan config:cache',
+            'sudo -u www-data php artisan route:cache', 
+            'sudo -u www-data php artisan view:cache',
+            'sudo chmod -R 775 storage bootstrap/cache',
+            'sudo chown -R www-data:www-data .'
         ];
         
         $output = "";
