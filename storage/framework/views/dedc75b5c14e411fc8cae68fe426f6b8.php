@@ -7,6 +7,26 @@
     <p class="text-sm text-gray-600">Isi detail booking Anda untuk menyelesaikan reservasi</p>
   </div>
 
+  <?php if(session('error')): ?>
+    <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded">
+      <div class="flex items-center">
+        <i class="fas fa-exclamation-circle mr-2"></i>
+        <span><?php echo e(session('error')); ?></span>
+      </div>
+    </div>
+  <?php endif; ?>
+
+  <?php if($errors->any()): ?>
+    <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded">
+      <div class="font-semibold mb-2"><i class="fas fa-exclamation-triangle mr-2"></i>Terjadi kesalahan:</div>
+      <ul class="list-disc pl-5 space-y-1">
+        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <li><?php echo e($error); ?></li>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+      </ul>
+    </div>
+  <?php endif; ?>
+
   <!-- Ringkasan Booking -->
   <div class="bg-white rounded-xl shadow p-6 space-y-4">
     <h2 class="font-semibold text-brown-700 flex items-center gap-2 text-lg"><i class="fas fa-info-circle text-orange-600"></i> Ringkasan Booking</h2>
@@ -59,7 +79,10 @@
           <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-600 mt-0.5"></i><span x-text="rule"></span></li>
         </template>
       </ul>
-      <label class="text-sm flex items-center gap-2 mt-2"><input type="checkbox" required> <span>Saya telah membaca dan menyetujui syarat dan ketentuan</span></label>
+      <label class="text-sm flex items-center gap-2 mt-2">
+        <input type="checkbox" name="agree" required> 
+        <span>Saya telah membaca dan menyetujui syarat dan ketentuan</span>
+      </label>
     </div>
 
     <div class="flex justify-between items-center">

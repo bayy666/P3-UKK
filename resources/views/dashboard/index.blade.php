@@ -4,64 +4,64 @@
 
 @section('content')
 <!-- Banner Selamat Datang -->
-<div class="gradient-bg rounded-2xl p-8 mb-6 shadow-lg">
-  <h2 class="text-3xl font-bold text-white">Halo, {{ Auth::user()->username }} 👋</h2>
-  <p class="text-white text-opacity-90 mt-2">Selamat datang kembali di sistem peminjaman ruangan</p>
+<div class="gradient-bg rounded-2xl p-4 md:p-8 mb-6 shadow-lg">
+  <h2 class="text-2xl md:text-3xl font-bold text-white">Halo, {{ Auth::user()->username }} 👋</h2>
+  <p class="text-white text-opacity-90 mt-2 text-sm md:text-base">Selamat datang kembali di sistem peminjaman ruangan</p>
 </div>
 
 <!-- Statistik Cards -->
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-  <div class="bg-white rounded-xl p-6 shadow-md border-l-4 border-orange-500 hover:shadow-xl transition-shadow">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+  <div class="bg-white rounded-xl p-4 md:p-6 shadow-md border-l-4 border-orange-500 hover:shadow-xl transition-shadow">
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-amber-700 text-sm font-semibold">Total Ruangan</p>
-        <p class="text-3xl font-bold text-amber-900 mt-1">{{ $roomsCount ?? 0 }}</p>
+        <p class="text-amber-700 text-xs md:text-sm font-semibold">Total Ruangan</p>
+        <p class="text-2xl md:text-3xl font-bold text-amber-900 mt-1">{{ $roomsCount ?? 0 }}</p>
       </div>
-      <div class="bg-orange-100 p-3 rounded-lg">
-        <i class="fas fa-door-open text-2xl text-orange-600"></i>
+      <div class="bg-orange-100 p-2 md:p-3 rounded-lg">
+        <i class="fas fa-door-open text-xl md:text-2xl text-orange-600"></i>
       </div>
     </div>
   </div>
 
-  <div class="bg-white rounded-xl p-6 shadow-md border-l-4 border-emerald-500 hover:shadow-xl transition-shadow">
+  <div class="bg-white rounded-xl p-4 md:p-6 shadow-md border-l-4 border-emerald-500 hover:shadow-xl transition-shadow">
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-amber-700 text-sm font-semibold">Total Pengguna</p>
-        <p class="text-3xl font-bold text-amber-900 mt-1">{{ $usersCount ?? 0 }}</p>
+        <p class="text-amber-700 text-xs md:text-sm font-semibold">Total Pengguna</p>
+        <p class="text-2xl md:text-3xl font-bold text-amber-900 mt-1">{{ $usersCount ?? 0 }}</p>
       </div>
-      <div class="bg-emerald-100 p-3 rounded-lg">
-        <i class="fas fa-users text-2xl text-emerald-600"></i>
+      <div class="bg-emerald-100 p-2 md:p-3 rounded-lg">
+        <i class="fas fa-users text-xl md:text-2xl text-emerald-600"></i>
       </div>
     </div>
   </div>
 
-  <div class="bg-white rounded-xl p-6 shadow-md border-l-4 border-amber-500 hover:shadow-xl transition-shadow">
+  <div class="bg-white rounded-xl p-4 md:p-6 shadow-md border-l-4 border-amber-500 hover:shadow-xl transition-shadow">
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-amber-700 text-sm font-semibold">Peminjaman Hari Ini</p>
-        <p class="text-3xl font-bold text-amber-900 mt-1">{{ $todayBookings ?? 0 }}</p>
+        <p class="text-amber-700 text-xs md:text-sm font-semibold">Peminjaman Hari Ini</p>
+        <p class="text-2xl md:text-3xl font-bold text-amber-900 mt-1">{{ $todayBookings ?? 0 }}</p>
       </div>
-      <div class="bg-amber-100 p-3 rounded-lg">
-        <i class="fas fa-calendar-day text-2xl text-amber-600"></i>
+      <div class="bg-amber-100 p-2 md:p-3 rounded-lg">
+        <i class="fas fa-calendar-day text-xl md:text-2xl text-amber-600"></i>
       </div>
     </div>
   </div>
 
-  <div class="bg-white rounded-xl p-6 shadow-md border-l-4 border-rose-500 hover:shadow-xl transition-shadow">
+  <div class="bg-white rounded-xl p-4 md:p-6 shadow-md border-l-4 border-rose-500 hover:shadow-xl transition-shadow">
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-amber-700 text-sm font-semibold">Total Peminjaman</p>
-        <p class="text-3xl font-bold text-amber-900 mt-1">{{ $totalBookings ?? 0 }}</p>
+        <p class="text-amber-700 text-xs md:text-sm font-semibold">Total Peminjaman</p>
+        <p class="text-2xl md:text-3xl font-bold text-amber-900 mt-1">{{ $totalBookings ?? 0 }}</p>
       </div>
-      <div class="bg-rose-100 p-3 rounded-lg">
-        <i class="fas fa-list text-2xl text-rose-600"></i>
+      <div class="bg-rose-100 p-2 md:p-3 rounded-lg">
+        <i class="fas fa-list text-xl md:text-2xl text-rose-600"></i>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Menu Cepat -->
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
   <a href="{{ route('rooms.index') }}" class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition text-center group">
     <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-indigo-600 transition">
       <i class="fas fa-door-open text-2xl text-indigo-600 group-hover:text-white"></i>

@@ -277,7 +277,7 @@ class SlotBookingController extends Controller
         // Hanya pemilik booking (role user) yang boleh melihat, kecuali admin/petugas
         $user = Auth::user();
         if (in_array($user->role, [3])) { // 3 = user biasa (asumsi)
-            if ($booking->id !== $user->id) {
+            if ($booking->id_user !== $user->id) {
                 abort(404);
             }
         }
@@ -308,7 +308,7 @@ class SlotBookingController extends Controller
         $booking = Booking::with('room')->findOrFail($id);
         $user = Auth::user();
         if (in_array($user->role, [3])) {
-            if ($booking->id !== $user->id) {
+            if ($booking->id_user !== $user->id) {
                 abort(404);
             }
         }

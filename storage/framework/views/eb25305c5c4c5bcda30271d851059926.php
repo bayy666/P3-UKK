@@ -65,11 +65,88 @@
     .border-emerald-500 { border-color: #8B9D83 !important; }
     .bg-emerald-100 { background-color: #E8F0E5 !important; }
     .text-emerald-600 { color: #6B7F61 !important; }
+    
+    /* Sidebar Responsive Styles */
+    .sidebar-container {
+      transition: transform 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+    }
+    
+    /* Mobile & Tablet - Fixed Overlay */
+    @media (max-width: 1024px) {
+      .sidebar-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 50;
+        transform: translateX(-100%);
+      }
+      
+      .sidebar-container.sidebar-open {
+        transform: translateX(0);
+      }
+      
+      .sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 40;
+        transition: opacity 0.3s ease-in-out;
+      }
+    }
+    
+    /* Desktop - Slide sidebar */
+    @media (min-width: 1025px) {
+      .sidebar-container {
+        position: relative;
+        transform: translateX(0);
+      }
+      
+      .sidebar-container:not(.sidebar-open) {
+        margin-left: -288px;
+      }
+      
+      .sidebar-overlay {
+        display: none !important;
+      }
+    }
+    
+    /* Hamburger Menu */
+    .hamburger-menu {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger-menu:hover {
+      transform: scale(1.1);
+    }
+    
+    /* Desktop Sidebar Toggle - Tambahan untuk visibility */
+    @media (min-width: 1025px) {
+      body[x-data] .sidebar-container {
+        transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+      }
+    }
   </style>
 </head>
-<body style="background-color: #FAF3E0;" class="text-[15px] md:text-[16px]">
-  <div class="flex h-screen">
-  <aside class="w-72 sidebar-bg border-r-2 border-orange-100 shadow-lg flex flex-col">
+<body style="background-color: #FAF3E0;" class="text-[15px] md:text-[16px]" x-data="{ sidebarOpen: true }">
+  <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar Overlay (Mobile) -->
+    <div x-show="sidebarOpen" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         @click="sidebarOpen = false"
+         class="sidebar-overlay lg:hidden"
+         style="display: none;">
+    </div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar-container w-72 sidebar-bg border-r-2 border-orange-100 shadow-lg flex flex-col"
+           :class="{ 'sidebar-open': sidebarOpen }">
       
       <div class="p-6 border-b border-orange-100">
         <div class="flex items-center justify-center mb-2">
@@ -266,30 +343,41 @@
     </aside>
 
     <div class="flex-1 flex flex-col overflow-hidden">
-      <header class="gradient-bg px-8 py-6 sticky top-0 z-10 shadow-2xl">
+      <header class="gradient-bg px-4 md:px-8 py-4 md:py-6 sticky top-0 z-30 shadow-2xl">
         <div class="flex items-center justify-between">
-          <div>
-            <h1 class="text-3xl font-bold text-white drop-shadow-lg"><?php echo $__env->yieldContent('title'); ?></h1>
-            <p class="text-base text-orange-100 mt-2 font-medium"><?php echo $__env->yieldContent('subtitle', 'Sistem Peminjaman Ruangan'); ?></p>
-          </div>
-          <div class="flex items-center gap-4">
-            <div class="text-right bg-white bg-opacity-20 backdrop-blur-sm px-6 py-3 rounded-2xl">
-              <p class="text-lg font-bold text-white"><?php echo e(Auth::user()->nama ?? Auth::user()->username); ?></p>
-              <p class="text-sm text-orange-100 font-medium">
-                <?php $r = Auth::user()->role ?? 1; ?>
-                <?php echo e($r==1?'Admin':($r==2?'Petugas':'User')); ?>
+          <div class="flex items-center gap-3 md:gap-4 flex-1">
+            <!-- Hamburger Menu -->
+            <button @click="sidebarOpen = !sidebarOpen" 
+                    class="hamburger-menu w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 rounded-lg text-white hover:bg-white hover:bg-opacity-30 flex-shrink-0">
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+            
+            <!-- User Info (Tampil di semua ukuran, sebelah hamburger) -->
+            <div class="flex items-center gap-2 md:gap-3 bg-white bg-opacity-20 backdrop-blur-sm px-3 md:px-4 py-2 rounded-xl flex-shrink-0">
+              <div class="w-8 h-8 md:w-10 md:h-10 bg-white/30 rounded-full flex items-center justify-center text-white text-sm md:text-base font-bold shadow-md border-2 border-white/30">
+                <?php echo e(strtoupper(substr(Auth::user()->nama ?? 'U', 0, 1))); ?>
 
-              </p>
+              </div>
+              <div class="text-left">
+                <p class="text-xs md:text-sm font-bold text-white leading-tight"><?php echo e(Auth::user()->nama ?? 'User'); ?></p>
+                <p class="text-[10px] md:text-xs text-orange-100 font-medium">
+                  <?php $r = Auth::user()->role ?? 1; ?>
+                  <?php echo e($r==1?'Admin':($r==2?'Petugas':'User')); ?>
+
+                </p>
+              </div>
             </div>
-            <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-md border-2 border-white/30">
-              <?php echo e(strtoupper(substr(Auth::user()->nama ?? Auth::user()->username, 0, 1))); ?>
-
+            
+            <!-- Title (Tersembunyi di mobile, muncul di tablet+) -->
+            <div class="hidden lg:block">
+              <h1 class="text-xl md:text-2xl font-bold text-white drop-shadow-lg"><?php echo $__env->yieldContent('title'); ?></h1>
+              <p class="text-xs md:text-sm text-orange-100 font-medium"><?php echo $__env->yieldContent('subtitle', 'Sistem Peminjaman Ruangan'); ?></p>
             </div>
           </div>
         </div>
       </header>
 
-      <main class="flex-1 overflow-y-auto p-8 bg-gradient-to-br from-orange-50 to-amber-50">
+      <main class="flex-1 overflow-y-auto p-4 md:p-8 bg-gradient-to-br from-orange-50 to-amber-50">
         <?php echo $__env->yieldContent('content'); ?>
       </main>
     </div>

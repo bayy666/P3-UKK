@@ -188,3 +188,45 @@ tbody tr:hover {
         display: none !important;
     }
 }
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    table {
+        min-width: 600px;
+    }
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 640px) {
+    .responsive-text-sm {
+        font-size: 0.875rem !important;
+    }
+    
+    .responsive-padding-sm {
+        padding: 0.5rem !important;
+    }
+    
+    .responsive-gap-sm {
+        gap: 0.5rem !important;
+    }
+}
+
+/* Tablet Responsive */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .sidebar-container {
+        width: 16rem;
+    }
+}
+
+/* Desktop Optimization */
+@media (min-width: 1440px) {
+    .container-wide {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+}

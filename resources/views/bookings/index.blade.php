@@ -5,14 +5,14 @@
 
 @section('content')
   <!-- Page Header -->
-  <div class="bg-gray-700 rounded-2xl p-8 shadow-lg mb-6">
-    <div class="flex items-center gap-4">
-      <div class="p-4 bg-white/20 text-white rounded-xl">
-        <i class="fas fa-clipboard-list text-2xl"></i>
+  <div class="bg-gray-700 rounded-2xl p-4 md:p-8 shadow-lg mb-6">
+    <div class="flex items-center gap-3 md:gap-4">
+      <div class="p-3 md:p-4 bg-white/20 text-white rounded-xl">
+        <i class="fas fa-clipboard-list text-xl md:text-2xl"></i>
       </div>
       <div>
-        <h1 class="text-3xl font-bold text-white">Peminjaman</h1>
-        <p class="text-gray-300 text-lg">Daftar peminjaman terbaru</p>
+        <h1 class="text-2xl md:text-3xl font-bold text-white">Peminjaman</h1>
+        <p class="text-gray-300 text-sm md:text-lg">Daftar peminjaman terbaru</p>
       </div>
     </div>
   </div>
@@ -29,14 +29,14 @@
   @endif
 
   <div class="bg-white rounded-xl shadow-md overflow-hidden">
-    <div class="px-8 py-5 border-b bg-gray-50">
+    <div class="px-4 md:px-8 py-4 md:py-5 border-b bg-gray-50">
       <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-        <h3 class="text-xl font-bold text-gray-900"><i class="fas fa-list mr-2 text-gray-600"></i>Daftar Peminjaman</h3>
-        <form method="GET" class="flex flex-wrap gap-3">
+        <h3 class="text-lg md:text-xl font-bold text-gray-900"><i class="fas fa-list mr-2 text-gray-600"></i>Daftar Peminjaman</h3>
+        <form method="GET" class="flex flex-wrap gap-2 md:gap-3">
           @php $statusOpt = request('status'); $roomOpt = request('room'); @endphp
-          <div>
+          <div class="flex-1 min-w-[120px]">
             <label class="block text-xs font-semibold text-gray-700 mb-1">Status</label>
-            <select name="status" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+            <select name="status" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
               <option value="">Semua</option>
               <option value="proses" @selected($statusOpt==='proses')>Proses</option>
               <option value="diterima" @selected($statusOpt==='diterima')>Disetujui</option>
@@ -44,9 +44,9 @@
               <option value="selesai" @selected($statusOpt==='selesai')>Selesai</option>
             </select>
           </div>
-          <div>
+          <div class="flex-1 min-w-[120px]">
             <label class="block text-xs font-semibold text-gray-700 mb-1">Ruangan</label>
-            <select name="room" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+            <select name="room" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
               <option value="">Semua</option>
               @foreach($rooms ?? [] as $r)
                 <option value="{{ $r->id_room }}" @selected((string)$roomOpt===(string)$r->id_room)>{{ $r->nama_room }}</option>
@@ -54,15 +54,15 @@
             </select>
           </div>
           <div class="flex gap-2 items-end">
-            <button class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-semibold"><i class="fas fa-filter mr-1"></i>Terapkan</button>
+            <button class="px-3 md:px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-semibold whitespace-nowrap"><i class="fas fa-filter mr-1"></i>Terapkan</button>
             @if(request()->has('status') || request()->has('room'))
-              <a href="{{ route('bookings.index') }}" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg text-sm">Reset</a>
+              <a href="{{ route('bookings.index') }}" class="px-3 md:px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg text-sm whitespace-nowrap">Reset</a>
             @endif
           </div>
         </form>
       </div>
     </div>
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto table-responsive">
       <table class="min-w-full">
         <thead class="bg-gray-50">
           <tr>
