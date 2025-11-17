@@ -372,14 +372,17 @@
     <div class="flex-1 flex flex-col overflow-hidden">
       <header class="gradient-bg px-4 md:px-8 py-4 md:py-6 sticky top-0 z-30 shadow-2xl">
         <div class="flex items-center justify-between gap-3">
-          <!-- Title (Kiri) -->
-          <div class="hidden md:block flex-1">
+          <!-- Title (Kiri) - Hidden on mobile -->
+          <div class="hidden md:block">
             <h1 class="text-xl md:text-2xl font-bold text-white drop-shadow-lg"><?php echo $__env->yieldContent('title'); ?></h1>
             <p class="text-xs md:text-sm text-orange-100 font-medium"><?php echo $__env->yieldContent('subtitle', 'Sistem Peminjaman Ruangan'); ?></p>
           </div>
           
+          <!-- Spacer untuk mobile agar menu tetap di kanan -->
+          <div class="flex-1 md:hidden"></div>
+          
           <!-- Hamburger + User Info (Kanan, berdekatan) -->
-          <div class="flex items-center gap-2 md:gap-3">
+          <div class="flex items-center gap-2 md:gap-3 ml-auto">
             <!-- Hamburger Menu -->
             <button @click="sidebarOpen = !sidebarOpen" 
                     class="hamburger-menu w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 rounded-lg text-white hover:bg-white hover:bg-opacity-30 flex-shrink-0">
@@ -413,7 +416,7 @@
                    x-transition:leave="transition ease-in duration-150"
                    x-transition:leave-start="opacity-100 translate-y-0"
                    x-transition:leave-end="opacity-0 translate-y-2"
-                   class="absolute right-0 mt-3 w-64 bg-white rounded-2xl shadow-2xl border border-orange-100 overflow-hidden z-50"
+                   class="absolute right-0 mt-3 w-72 bg-white rounded-2xl shadow-2xl border border-orange-100 overflow-hidden z-50"
                    style="display: none;">
                 <!-- Header dengan Gradient -->
                 <div class="gradient-bg px-4 py-4">
