@@ -54,7 +54,7 @@
           <label class="block font-semibold mb-2" style="color: #5A3A1A;">
             <i class="fas fa-user mr-2" style="color: #D2691E;"></i>Username
           </label>
-          <input type="text" name="username" id="username" value="admin" required 
+          <input type="text" name="username" id="username" required 
                  autocomplete="off" 
                  class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition"
                  style="border-color: #E8C5A5; color: #5A3A1A;"
@@ -67,7 +67,7 @@
           <label class="block font-semibold mb-2" style="color: #5A3A1A;">
             <i class="fas fa-lock mr-2" style="color: #D2691E;"></i>Password
           </label>
-          <input type="password" name="password" id="password" value="admin123" required 
+          <input type="password" name="password" id="password" required 
                  autocomplete="off" 
                  class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition"
                  style="border-color: #E8C5A5; color: #5A3A1A;"
@@ -76,34 +76,11 @@
                  placeholder="Masukkan password">
         </div>
 
-        <!-- Quick Login Buttons -->
-        <div class="mb-4 grid grid-cols-3 gap-2">
-          <button type="button" onclick="quickLogin('admin', 'admin123')" 
-                  class="px-3 py-2 text-xs font-semibold rounded-lg border-2 border-orange-300 text-orange-700 hover:bg-orange-50 transition">
-            <i class="fas fa-crown mr-1"></i>Admin
-          </button>
-          <button type="button" onclick="quickLogin('petugas', 'petugas123')" 
-                  class="px-3 py-2 text-xs font-semibold rounded-lg border-2 border-blue-300 text-blue-700 hover:bg-blue-50 transition">
-            <i class="fas fa-user-tie mr-1"></i>Petugas
-          </button>
-          <button type="button" onclick="quickLogin('user', 'user123')" 
-                  class="px-3 py-2 text-xs font-semibold rounded-lg border-2 border-green-300 text-green-700 hover:bg-green-50 transition">
-            <i class="fas fa-user mr-1"></i>User
-          </button>
-        </div>
-
         <button type="submit" class="w-full gradient-bg text-white font-bold py-3 rounded-xl transition transform hover:scale-[1.02] hover:shadow-2xl flex items-center justify-center" onclick="this.form.querySelector('input[name=_token]')?.setAttribute('value','<?php echo e(csrf_token()); ?>')">
           <i class="fas fa-sign-in-alt mr-2"></i>
           Masuk
         </button>
       </form>
-
-      <script>
-        function quickLogin(username, password) {
-          document.getElementById('username').value = username;
-          document.getElementById('password').value = password;
-        }
-      </script>
 
       <div class="mt-6 text-center">
         <p class="text-amber-700">Belum punya akun? 

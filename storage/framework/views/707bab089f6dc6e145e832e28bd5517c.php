@@ -1,39 +1,39 @@
-@extends('layouts.admin')
+<?php $__env->startSection('title', 'Profil Saya'); ?>
 
-@section('title', 'Profil Saya')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- Page Header -->
 <div class="gradient-bg rounded-2xl p-4 md:p-6 mb-6 shadow-lg">
   <div class="flex items-center gap-4">
     <div class="w-16 h-16 md:w-20 md:h-20 bg-white/30 rounded-full flex items-center justify-center text-white text-2xl md:text-3xl font-bold border-4 border-white/50 shadow-xl">
-      {{ strtoupper(substr($user->nama ?? $user->username ?? 'U', 0, 1)) }}
+      <?php echo e(strtoupper(substr($user->nama ?? $user->username ?? 'U', 0, 1))); ?>
+
     </div>
     <div>
-      <h1 class="text-2xl md:text-3xl font-bold text-white">{{ $user->nama ?? $user->username }}</h1>
+      <h1 class="text-2xl md:text-3xl font-bold text-white"><?php echo e($user->nama ?? $user->username); ?></h1>
       <p class="text-white text-opacity-90 mt-1">
-        @php $r = $user->role ?? 1; @endphp
-        {{ $r==1?'Administrator':($r==2?'Petugas':'Pengguna') }}
+        <?php $r = $user->role ?? 1; ?>
+        <?php echo e($r==1?'Administrator':($r==2?'Petugas':'Pengguna')); ?>
+
       </p>
     </div>
   </div>
 </div>
 
-@if(session('success'))
+<?php if(session('success')): ?>
   <div class="bg-emerald-50 border-l-4 border-emerald-500 text-emerald-700 px-6 py-4 rounded-xl shadow-sm mb-6 flex items-center gap-3">
     <i class="fas fa-check-circle text-xl"></i>
-    <span class="font-medium">{{ session('success') }}</span>
+    <span class="font-medium"><?php echo e(session('success')); ?></span>
   </div>
-@endif
+<?php endif; ?>
 
-@if(session('error'))
+<?php if(session('error')): ?>
   <div class="bg-red-50 border-l-4 border-red-500 text-red-700 px-6 py-4 rounded-xl shadow-sm mb-6 flex items-center gap-3">
     <i class="fas fa-exclamation-circle text-xl"></i>
-    <span class="font-medium">{{ session('error') }}</span>
+    <span class="font-medium"><?php echo e(session('error')); ?></span>
   </div>
-@endif
+<?php endif; ?>
 
-@if($user->role == 3)
+<?php if($user->role == 3): ?>
 <!-- Card Profil User -->
 <div class="bg-white rounded-2xl shadow-xl overflow-hidden max-w-3xl mx-auto">
   <!-- Header -->
@@ -47,9 +47,9 @@
 
   <div class="p-6 md:p-8">
     <!-- Form Gabungan -->
-    <form method="POST" action="{{ route('profile.update') }}" autocomplete="off">
-      @csrf
-      @method('PUT')
+    <form method="POST" action="<?php echo e(route('profile.update')); ?>" autocomplete="off">
+      <?php echo csrf_field(); ?>
+      <?php echo method_field('PUT'); ?>
       
       <!-- Informasi Profil -->
       <div class="mb-6">
@@ -129,7 +129,7 @@
     </form>
   </div>
 </div>
-@else
+<?php else: ?>
 <!-- Pesan untuk Admin/Petugas -->
 <div class="bg-white rounded-2xl shadow-xl overflow-hidden max-w-2xl mx-auto">
   <div class="gradient-bg px-6 py-5">
@@ -144,9 +144,11 @@
     </div>
     <h3 class="text-xl font-bold text-gray-900 mb-2">Fitur Edit Profil</h3>
     <p class="text-gray-600 mb-4">Fitur edit profil hanya tersedia untuk pengguna biasa.</p>
-    <p class="text-sm text-gray-500">Anda login sebagai: <span class="font-bold">{{ $user->role == 1 ? 'Administrator' : 'Petugas' }}</span></p>
+    <p class="text-sm text-gray-500">Anda login sebagai: <span class="font-bold"><?php echo e($user->role == 1 ? 'Administrator' : 'Petugas'); ?></span></p>
   </div>
 </div>
-@endif
+<?php endif; ?>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\M S I\P3-UKK\resources\views/profile/index.blade.php ENDPATH**/ ?>

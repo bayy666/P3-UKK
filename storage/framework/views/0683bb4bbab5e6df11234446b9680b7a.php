@@ -8,39 +8,39 @@
 </div>
 
 <!-- Statistik Cards -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-  <div class="bg-white rounded-xl p-6 shadow-md border-l-4 border-indigo-500">
-    <div class="flex items-center justify-between">
-      <div>
-        <p class="text-gray-500 text-sm font-semibold">Total Peminjaman</p>
-        <p class="text-3xl font-bold text-gray-900 mt-1"><?php echo e($myBookings ?? 0); ?></p>
+<div class="grid grid-cols-3 gap-4 md:gap-6 mb-6">
+  <div class="bg-white rounded-xl p-4 md:p-6 shadow-md border-l-4 border-indigo-500">
+    <div class="flex flex-col md:flex-row items-center md:justify-between gap-3">
+      <div class="text-center md:text-left">
+        <p class="text-gray-500 text-xs md:text-sm font-semibold">Total Peminjaman</p>
+        <p class="text-2xl md:text-3xl font-bold text-gray-900 mt-1"><?php echo e($myBookings ?? 0); ?></p>
       </div>
-      <div class="bg-indigo-100 p-3 rounded-lg">
-        <i class="fas fa-list text-2xl text-indigo-600"></i>
-      </div>
-    </div>
-  </div>
-
-  <div class="bg-white rounded-xl p-6 shadow-md border-l-4 border-amber-500">
-    <div class="flex items-center justify-between">
-      <div>
-        <p class="text-gray-500 text-sm font-semibold">Menunggu Persetujuan</p>
-        <p class="text-3xl font-bold text-gray-900 mt-1"><?php echo e($pendingBookings ?? 0); ?></p>
-      </div>
-      <div class="bg-amber-100 p-3 rounded-lg">
-        <i class="fas fa-clock text-2xl text-amber-600"></i>
+      <div class="bg-indigo-100 p-2 md:p-3 rounded-lg">
+        <i class="fas fa-list text-lg md:text-2xl text-indigo-600"></i>
       </div>
     </div>
   </div>
 
-  <div class="bg-white rounded-xl p-6 shadow-md border-l-4 border-emerald-500">
-    <div class="flex items-center justify-between">
-      <div>
-        <p class="text-gray-500 text-sm font-semibold">Disetujui</p>
-        <p class="text-3xl font-bold text-gray-900 mt-1"><?php echo e($approvedBookings ?? 0); ?></p>
+  <div class="bg-white rounded-xl p-4 md:p-6 shadow-md border-l-4 border-amber-500">
+    <div class="flex flex-col md:flex-row items-center md:justify-between gap-3">
+      <div class="text-center md:text-left">
+        <p class="text-gray-500 text-xs md:text-sm font-semibold">Menunggu Persetujuan</p>
+        <p class="text-2xl md:text-3xl font-bold text-gray-900 mt-1"><?php echo e($pendingBookings ?? 0); ?></p>
       </div>
-      <div class="bg-emerald-100 p-3 rounded-lg">
-        <i class="fas fa-check-circle text-2xl text-emerald-600"></i>
+      <div class="bg-amber-100 p-2 md:p-3 rounded-lg">
+        <i class="fas fa-clock text-lg md:text-2xl text-amber-600"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl p-4 md:p-6 shadow-md border-l-4 border-emerald-500">
+    <div class="flex flex-col md:flex-row items-center md:justify-between gap-3">
+      <div class="text-center md:text-left">
+        <p class="text-gray-500 text-xs md:text-sm font-semibold">Disetujui</p>
+        <p class="text-2xl md:text-3xl font-bold text-gray-900 mt-1"><?php echo e($approvedBookings ?? 0); ?></p>
+      </div>
+      <div class="bg-emerald-100 p-2 md:p-3 rounded-lg">
+        <i class="fas fa-check-circle text-lg md:text-2xl text-emerald-600"></i>
       </div>
     </div>
   </div>
