@@ -38,6 +38,7 @@ class SlotBookingController extends Controller
             'tanggal' => 'required|date|after_or_equal:today',
             'jam_mulai' => 'required',
             'jam_selesai' => 'required',
+            'team_name' => 'required|string|max:255',
             'keterangan' => 'required|string|max:500',
         ]);
 
@@ -85,8 +86,8 @@ class SlotBookingController extends Controller
             'tanggal_selesai' => $tanggalSelesai,
             'harga' => $harga,
             'durasi' => $durasi,
-            // Catat keterangan apa adanya, tanpa informasi metode pembayaran (gratis)
-            'keterangan' => $request->keterangan ?? ('Penyewa: '.($request->team_name ?? '-')),
+            // Gabungkan nama penyewa dan keterangan
+            'keterangan' => 'Penyewa: ' . $request->team_name . ' | ' . $request->keterangan,
             'status' => 'proses',
         ]);
 

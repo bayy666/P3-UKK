@@ -46,8 +46,8 @@
         </div>
       </div>
       <div class="flex gap-3">
-        <button class="px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg shadow-md transition"><i class="fas fa-save mr-2"></i> Simpan Perubahan</button>
         <a href="{{ route('jadwal-reguler.index') }}" class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-lg transition"><i class="fas fa-arrow-left mr-2"></i> Kembali</a>
+        <button class="px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg shadow-md transition"><i class="fas fa-save mr-2"></i> Simpan Perubahan</button>
       </div>
     </form>
   </div>

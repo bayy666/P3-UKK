@@ -60,7 +60,8 @@ class BookingController extends BaseController
             // Petugas menggunakan tampilan tabel sederhana yang mengharapkan variabel `$bookings`
             // Karena kebijakan: petugas bisa menangani booking siapa saja, kirim semua data
             $bookings = $allBookings;
-            return view('bookings.index', compact('bookings'));
+            $rooms = Room::orderBy('nama_room')->get(); // Semua ruangan untuk filter
+            return view('bookings.index', compact('bookings', 'rooms'));
         }
     }
 

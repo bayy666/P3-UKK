@@ -47,10 +47,10 @@ class UserController extends BaseController
         }
         
         $request->validate([
-            'username' => 'required|string|unique:user',
+            'username' => 'required|string|unique:users',
             'password' => 'required|string|min:6',
             'nama' => 'required|string|max:255',
-            'email' => 'nullable|email|unique:user',
+            'email' => 'nullable|email|unique:users',
             'no_telepon' => 'nullable|string|max:20',
             'alamat' => 'nullable|string',
             'role' => 'required|integer|in:1,2,3',

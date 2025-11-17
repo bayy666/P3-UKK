@@ -95,7 +95,7 @@ class StaffController extends BaseController
         }
         
         $petugas = Petugas::findOrFail($id);
-        $user = User::findOrFail($petugas->id);
+        $user = User::findOrFail($petugas->id_user);
         
         $validatedData = $request->validate([
             'nama_petugas' => 'required|string|max:255',
@@ -103,12 +103,12 @@ class StaffController extends BaseController
                 'required',
                 'string',
                 'max:50',
-                Rule::unique('user', 'username')->ignore($user->id, 'id_user'),
+                Rule::unique('users', 'username')->ignore($user->id),
             ],
             'email' => [
                 'nullable',
                 'email',
-                Rule::unique('user', 'email')->ignore($user->id, 'id_user'),
+                Rule::unique('users', 'email')->ignore($user->id),
             ],
             'no_hp' => 'required|string|max:20',
         ]);
@@ -161,7 +161,7 @@ class StaffController extends BaseController
         }
         
         $petugas = Petugas::findOrFail($id);
-        $user = User::findOrFail($petugas->id);
+        $user = User::findOrFail($petugas->id_user);
         
         // Cek apakah petugas memiliki peminjaman yang ditangani
         $hasBookings = $petugas->bookings()->exists();
