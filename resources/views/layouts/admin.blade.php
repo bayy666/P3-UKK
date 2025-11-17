@@ -156,7 +156,7 @@
     }
   </style>
 </head>
-<body style="background-color: #FAF3E0;" class="text-[15px] md:text-[16px]" x-data="{ sidebarOpen: true }">
+<body style="background-color: #FAF3E0;" class="text-[15px] md:text-[16px]" x-data="{ sidebarOpen: window.innerWidth >= 1024 }">
   <div class="flex h-screen overflow-hidden">
     <!-- Sidebar Overlay (Mobile) -->
     <div x-show="sidebarOpen" 
