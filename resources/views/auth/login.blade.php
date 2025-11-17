@@ -54,6 +54,10 @@
           </label>
           <input type="text" name="username" id="username" required 
                  autocomplete="off" 
+                 autocorrect="off" 
+                 autocapitalize="off" 
+                 spellcheck="false"
+                 readonly onfocus="this.removeAttribute('readonly');"
                  class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition"
                  style="border-color: #E8C5A5; color: #5A3A1A;"
                  onfocus="this.style.borderColor='#D2691E'" 
@@ -66,7 +70,8 @@
             <i class="fas fa-lock mr-2" style="color: #D2691E;"></i>Password
           </label>
           <input type="password" name="password" id="password" required 
-                 autocomplete="off" 
+                 autocomplete="new-password" 
+                 readonly onfocus="this.removeAttribute('readonly');"
                  class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition"
                  style="border-color: #E8C5A5; color: #5A3A1A;"
                  onfocus="this.style.borderColor='#D2691E'" 

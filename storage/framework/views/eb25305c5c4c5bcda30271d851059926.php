@@ -156,7 +156,7 @@
     }
   </style>
 </head>
-<body style="background-color: #FAF3E0;" class="text-[15px] md:text-[16px]" x-data="{ sidebarOpen: true }">
+<body style="background-color: #FAF3E0;" class="text-[15px] md:text-[16px]" x-data="{ sidebarOpen: window.innerWidth >= 1024 }">
   <div class="flex h-screen overflow-hidden">
     <!-- Sidebar Overlay (Mobile) -->
     <div x-show="sidebarOpen" 
@@ -389,15 +389,16 @@
               <i class="fas fa-bars text-xl"></i>
             </button>
             
-            <!-- User Profile Dropdown -->
+            <!-- User Profile Dropdown (Hanya untuk Petugas & User) -->
+            <?php $userRole = Auth::user()->role ?? 1; ?>
+            <?php if($userRole == 2 || $userRole == 3): ?>
             <div class="relative" x-data="{ profileOpen: false }" @click.away="profileOpen = false">
               <button @click="profileOpen = !profileOpen" 
                       class="flex items-center gap-2 bg-white bg-opacity-20 backdrop-blur-sm px-2 md:px-3 py-2 rounded-xl hover:bg-opacity-30 transition-all group">
                 <div class="text-right hidden md:block">
                   <p class="text-xs font-bold text-white leading-tight"><?php echo e(Auth::user()->nama ?? 'User'); ?></p>
                   <p class="text-[10px] text-orange-100 font-medium">
-                    <?php $r = Auth::user()->role ?? 1; ?>
-                    <?php echo e($r==1?'Admin':($r==2?'Petugas':'User')); ?>
+                    <?php echo e($userRole==2?'Petugas':'User'); ?>
 
                   </p>
                 </div>
@@ -428,8 +429,7 @@
                     <div>
                       <p class="text-sm font-bold text-white"><?php echo e(Auth::user()->nama ?? 'User'); ?></p>
                       <p class="text-xs text-orange-100">
-                        <?php $r = Auth::user()->role ?? 1; ?>
-                        <?php echo e($r==1?'Administrator':($r==2?'Petugas':'Pengguna')); ?>
+                        <?php echo e($userRole==2?'Petugas':'Pengguna'); ?>
 
                       </p>
                     </div>
@@ -451,6 +451,19 @@
                 </div>
               </div>
             </div>
+            <?php else: ?>
+            <!-- Display untuk Admin (tanpa dropdown) -->
+            <div class="flex items-center gap-2 bg-white bg-opacity-20 backdrop-blur-sm px-3 py-2 rounded-xl">
+              <div class="text-right hidden md:block">
+                <p class="text-xs font-bold text-white leading-tight"><?php echo e(Auth::user()->nama ?? 'Admin'); ?></p>
+                <p class="text-[10px] text-orange-100 font-medium">Administrator</p>
+              </div>
+              <div class="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white text-sm md:text-base font-bold shadow-lg border-2 border-white/50">
+                <?php echo e(strtoupper(substr(Auth::user()->nama ?? 'A', 0, 1))); ?>
+
+              </div>
+            </div>
+            <?php endif; ?>
           </div>
         </div>
       </header>
