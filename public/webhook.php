@@ -1,7 +1,7 @@
 <?php
 
 class WebhookDeployer {
-    private $secret = 'aku-suka-rama-rudi';
+    private $secret = 'your-github-webhook-secret';
     private $projectDir = '/var/www/laravel-app';
     private $logFile = '/var/log/webhook-deploy.log';
     
@@ -54,8 +54,23 @@ class WebhookDeployer {
         
         chdir($this->projectDir);
         
-        // Execute deploy script
-        $output = shell_exec('php /var/www/laravel-app/public/deploy.php 2>&1');
+        // Execute deploy commands directly (tanpa file deploy.php)
+        $commands = [
+            'git pull origin main',
+            'composer install --no-dev --optimize-autoloader',
+            'php artisan migrate --force',
+            'php artisan config:cache',
+            'php artisan route:cache', 
+            'php artisan view:cache',
+            'chmod -R 755 storage bootstrap/cache'
+        ];
+        
+        $output = "";
+        foreach ($commands as $cmd) {
+            $this->log("Executing: $cmd");
+            $result = shell_exec("$cmd 2>&1");
+            $output .= "=== $cmd ===\n$result\n";
+        }
         
         $this->log("✅ Deployment completed\n" . $output);
         $this->respond(200, 'Deployment successful');
