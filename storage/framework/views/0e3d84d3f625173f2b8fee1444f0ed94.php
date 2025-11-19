@@ -88,7 +88,8 @@
       </form>
 
       <div class="mt-6 text-center">
-        <p class="text-amber-700">Belum punya akun? 
+        <!-- <a href="#" class="text-orange-600 hover:underline font-semibold text-sm">Lupa password?</a> -->
+        <p class="text-amber-700 mt-2">Belum punya akun? 
           <a href="<?php echo e(route('register')); ?>" class="font-bold hover:underline" style="color: #D2691E;">Daftar Sekarang</a>
         </p>
       </div>
