@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title') - RoomBook</title>
+  <title><?php echo $__env->yieldContent('title'); ?> - RoomBook</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -185,176 +185,176 @@
         <p class="text-xs text-amber-700 text-center bg-orange-50 rounded-lg py-1 px-3">Sistem Peminjaman Ruangan</p>
       </div>
       <nav class="p-4 space-y-2 flex-1 overflow-y-auto">
-        @php $role = Auth::user()->role ?? 3; @endphp
+        <?php $role = Auth::user()->role ?? 3; ?>
         
-        <a href="/dashboard" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ Request::is('dashboard') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium' }}">
+        <a href="/dashboard" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all <?php echo e(Request::is('dashboard') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium'); ?>">
           <div class="flex items-center">
-            <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ Request::is('dashboard') ? 'bg-white bg-opacity-20' : 'bg-orange-50' }}">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center <?php echo e(Request::is('dashboard') ? 'bg-white bg-opacity-20' : 'bg-orange-50'); ?>">
               <i class="fas fa-home text-xl"></i>
             </div>
             <span class="ml-3">Dashboard</span>
           </div>
-          @if(Request::is('dashboard'))
+          <?php if(Request::is('dashboard')): ?>
           <i class="fas fa-chevron-right"></i>
-          @endif
+          <?php endif; ?>
         </a>
         
-        @if($role === 1)
+        <?php if($role === 1): ?>
           <!-- Menu Admin -->
-          <a href="{{ route('bookings.index') }}" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ Request::is('bookings*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium' }}">
+          <a href="<?php echo e(route('bookings.index')); ?>" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all <?php echo e(Request::is('bookings*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium'); ?>">
             <div class="flex items-center">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ Request::is('bookings*') ? 'bg-white bg-opacity-20' : 'bg-orange-50' }}">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center <?php echo e(Request::is('bookings*') ? 'bg-white bg-opacity-20' : 'bg-orange-50'); ?>">
                 <i class="fas fa-clipboard-list text-xl"></i>
               </div>
               <span class="ml-3">Kelola Peminjaman</span>
             </div>
-            @if(Request::is('bookings*'))
+            <?php if(Request::is('bookings*')): ?>
             <i class="fas fa-chevron-right"></i>
-            @endif
+            <?php endif; ?>
           </a>
-          <a href="{{ route('rooms.index') }}" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ Request::is('rooms*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium' }}">
+          <a href="<?php echo e(route('rooms.index')); ?>" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all <?php echo e(Request::is('rooms*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium'); ?>">
             <div class="flex items-center">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ Request::is('rooms*') ? 'bg-white bg-opacity-20' : 'bg-orange-50' }}">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center <?php echo e(Request::is('rooms*') ? 'bg-white bg-opacity-20' : 'bg-orange-50'); ?>">
                 <i class="fas fa-door-open text-xl"></i>
               </div>
               <span class="ml-3">Kelola Ruangan</span>
             </div>
-            @if(Request::is('rooms*'))
+            <?php if(Request::is('rooms*')): ?>
             <i class="fas fa-chevron-right"></i>
-            @endif
+            <?php endif; ?>
           </a>
-          <a href="{{ route('reports.index') }}" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ Request::is('reports*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium' }}">
+          <a href="<?php echo e(route('reports.index')); ?>" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all <?php echo e(Request::is('reports*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium'); ?>">
             <div class="flex items-center">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ Request::is('reports*') ? 'bg-white bg-opacity-20' : 'bg-orange-50' }}">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center <?php echo e(Request::is('reports*') ? 'bg-white bg-opacity-20' : 'bg-orange-50'); ?>">
                 <i class="fas fa-chart-bar text-xl"></i>
               </div>
               <span class="ml-3">Laporan</span>
             </div>
-            @if(Request::is('reports*'))
+            <?php if(Request::is('reports*')): ?>
             <i class="fas fa-chevron-right"></i>
-            @endif
+            <?php endif; ?>
           </a>
-          <a href="{{ route('schedule.index') }}" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ Request::is('schedule*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium' }}">
+          <a href="<?php echo e(route('schedule.index')); ?>" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all <?php echo e(Request::is('schedule*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium'); ?>">
             <div class="flex items-center">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ Request::is('schedule*') ? 'bg-white bg-opacity-20' : 'bg-orange-50' }}">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center <?php echo e(Request::is('schedule*') ? 'bg-white bg-opacity-20' : 'bg-orange-50'); ?>">
                 <i class="fas fa-calendar text-xl"></i>
               </div>
               <span class="ml-3">Jadwal Ruangan</span>
             </div>
-            @if(Request::is('schedule*'))
+            <?php if(Request::is('schedule*')): ?>
             <i class="fas fa-chevron-right"></i>
-            @endif
+            <?php endif; ?>
           </a>
-          <a href="{{ route('jadwal-reguler.index') }}" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ Request::is('jadwal-reguler*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium' }}">
+          <a href="<?php echo e(route('jadwal-reguler.index')); ?>" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all <?php echo e(Request::is('jadwal-reguler*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium'); ?>">
             <div class="flex items-center">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ Request::is('jadwal-reguler*') ? 'bg-white bg-opacity-20' : 'bg-orange-50' }}">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center <?php echo e(Request::is('jadwal-reguler*') ? 'bg-white bg-opacity-20' : 'bg-orange-50'); ?>">
                 <i class="fas fa-calendar-check text-xl"></i>
               </div>
               <span class="ml-3">Jadwal Reguler</span>
             </div>
-            @if(Request::is('jadwal-reguler*'))
+            <?php if(Request::is('jadwal-reguler*')): ?>
             <i class="fas fa-chevron-right"></i>
-            @endif
+            <?php endif; ?>
           </a>
-          <a href="{{ route('users.index') }}" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ Request::is('users*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium' }}">
+          <a href="<?php echo e(route('users.index')); ?>" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all <?php echo e(Request::is('users*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium'); ?>">
             <div class="flex items-center">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ Request::is('users*') ? 'bg-white bg-opacity-20' : 'bg-orange-50' }}">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center <?php echo e(Request::is('users*') ? 'bg-white bg-opacity-20' : 'bg-orange-50'); ?>">
                 <i class="fas fa-users text-xl"></i>
               </div>
               <span class="ml-3">Kelola Pengguna</span>
             </div>
-            @if(Request::is('users*'))
+            <?php if(Request::is('users*')): ?>
             <i class="fas fa-chevron-right"></i>
-            @endif
+            <?php endif; ?>
           </a>
-          <a href="{{ route('staff.index') }}" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ Request::is('staff*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium' }}">
+          <a href="<?php echo e(route('staff.index')); ?>" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all <?php echo e(Request::is('staff*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium'); ?>">
             <div class="flex items-center">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ Request::is('staff*') ? 'bg-white bg-opacity-20' : 'bg-orange-50' }}">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center <?php echo e(Request::is('staff*') ? 'bg-white bg-opacity-20' : 'bg-orange-50'); ?>">
                 <i class="fas fa-user-tie text-xl"></i>
               </div>
               <span class="ml-3">Kelola Petugas</span>
             </div>
-            @if(Request::is('staff*'))
+            <?php if(Request::is('staff*')): ?>
             <i class="fas fa-chevron-right"></i>
-            @endif
+            <?php endif; ?>
           </a>
-        @elseif($role === 2)
+        <?php elseif($role === 2): ?>
           <!-- Menu Petugas -->
-          <a href="{{ route('bookings.index') }}" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ Request::is('bookings*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium' }}">
+          <a href="<?php echo e(route('bookings.index')); ?>" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all <?php echo e(Request::is('bookings*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium'); ?>">
             <div class="flex items-center">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ Request::is('bookings*') ? 'bg-white bg-opacity-20' : 'bg-orange-50' }}">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center <?php echo e(Request::is('bookings*') ? 'bg-white bg-opacity-20' : 'bg-orange-50'); ?>">
                 <i class="fas fa-clipboard-check text-xl"></i>
               </div>
               <span class="ml-3">Kelola Peminjaman</span>
             </div>
-            @if(Request::is('bookings*'))
+            <?php if(Request::is('bookings*')): ?>
             <i class="fas fa-chevron-right"></i>
-            @endif
+            <?php endif; ?>
           </a>
-          <a href="{{ route('reports.index') }}" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ Request::is('reports*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium' }}">
+          <a href="<?php echo e(route('reports.index')); ?>" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all <?php echo e(Request::is('reports*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium'); ?>">
             <div class="flex items-center">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ Request::is('reports*') ? 'bg-white bg-opacity-20' : 'bg-orange-50' }}">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center <?php echo e(Request::is('reports*') ? 'bg-white bg-opacity-20' : 'bg-orange-50'); ?>">
                 <i class="fas fa-chart-bar text-xl"></i>
               </div>
               <span class="ml-3">Laporan</span>
             </div>
-            @if(Request::is('reports*'))
+            <?php if(Request::is('reports*')): ?>
             <i class="fas fa-chevron-right"></i>
-            @endif
+            <?php endif; ?>
           </a>
-          <a href="{{ route('schedule.index') }}" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ Request::is('schedule*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium' }}">
+          <a href="<?php echo e(route('schedule.index')); ?>" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all <?php echo e(Request::is('schedule*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium'); ?>">
             <div class="flex items-center">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ Request::is('schedule*') ? 'bg-white bg-opacity-20' : 'bg-orange-50' }}">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center <?php echo e(Request::is('schedule*') ? 'bg-white bg-opacity-20' : 'bg-orange-50'); ?>">
                 <i class="fas fa-calendar text-xl"></i>
               </div>
               <span class="ml-3">Jadwal Ruangan</span>
             </div>
-            @if(Request::is('schedule*'))
+            <?php if(Request::is('schedule*')): ?>
             <i class="fas fa-chevron-right"></i>
-            @endif
+            <?php endif; ?>
           </a>
-          <a href="{{ route('jadwal-reguler.index') }}" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ Request::is('jadwal-reguler*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium' }}">
+          <a href="<?php echo e(route('jadwal-reguler.index')); ?>" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all <?php echo e(Request::is('jadwal-reguler*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium'); ?>">
             <div class="flex items-center">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ Request::is('jadwal-reguler*') ? 'bg-white bg-opacity-20' : 'bg-orange-50' }}">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center <?php echo e(Request::is('jadwal-reguler*') ? 'bg-white bg-opacity-20' : 'bg-orange-50'); ?>">
                 <i class="fas fa-calendar-check text-xl"></i>
               </div>
               <span class="ml-3">Jadwal Reguler</span>
             </div>
-            @if(Request::is('jadwal-reguler*'))
+            <?php if(Request::is('jadwal-reguler*')): ?>
             <i class="fas fa-chevron-right"></i>
-            @endif
+            <?php endif; ?>
           </a>
-        @else
+        <?php else: ?>
           <!-- Menu User/Peminjam -->
-          <a href="{{ route('user.slot-booking.index') }}" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ Request::is('user/slot-booking') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium' }}">
+          <a href="<?php echo e(route('user.slot-booking.index')); ?>" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all <?php echo e(Request::is('user/slot-booking') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium'); ?>">
             <div class="flex items-center">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ Request::is('user/slot-booking') ? 'bg-white bg-opacity-20' : 'bg-orange-50' }}">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center <?php echo e(Request::is('user/slot-booking') ? 'bg-white bg-opacity-20' : 'bg-orange-50'); ?>">
                 <i class="fas fa-calendar-plus text-xl"></i>
               </div>
               <span class="ml-3">Pengajuan Pinjaman</span>
             </div>
-            @if(Request::is('user/slot-booking'))
+            <?php if(Request::is('user/slot-booking')): ?>
             <i class="fas fa-chevron-right"></i>
-            @endif
+            <?php endif; ?>
           </a>
-          <a href="{{ route('schedule.index') }}" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ Request::is('schedule*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium' }}">
+          <a href="<?php echo e(route('schedule.index')); ?>" class="menu-item flex items-center justify-between px-4 py-3 rounded-xl transition-all <?php echo e(Request::is('schedule*') ? 'gradient-bg text-white font-semibold shadow-md' : 'text-amber-800 hover:bg-orange-50 font-medium'); ?>">
             <div class="flex items-center">
-              <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ Request::is('schedule*') ? 'bg-white bg-opacity-20' : 'bg-orange-50' }}">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center <?php echo e(Request::is('schedule*') ? 'bg-white bg-opacity-20' : 'bg-orange-50'); ?>">
                 <i class="fas fa-calendar text-xl"></i>
               </div>
               <span class="ml-3">Jadwal Ruangan</span>
             </div>
-            @if(Request::is('schedule*'))
+            <?php if(Request::is('schedule*')): ?>
             <i class="fas fa-chevron-right"></i>
-            @endif
+            <?php endif; ?>
           </a>
-        @endif
+        <?php endif; ?>
       </nav>
       <!-- Logout button di bagian bawah -->
       <div class="p-4 border-t border-orange-100 bg-orange-50">
         <!-- Form logout wajib POST agar lolos proteksi CSRF; tambahkan id agar bisa dipicu via link/JS -->
-        <form id="logout-form" method="POST" action="{{ route('logout') }}">
-          @csrf
+        <form id="logout-form" method="POST" action="<?php echo e(route('logout')); ?>">
+          <?php echo csrf_field(); ?>
           <button type="submit" class="flex items-center px-4 py-3 text-white bg-gradient-to-r from-red-500 to-red-600 rounded-xl w-full font-semibold transition-all hover:shadow-md">
             <div class="w-10 h-10 rounded-lg bg-white bg-opacity-20 flex items-center justify-center">
               <i class="fas fa-sign-out-alt text-xl"></i>
@@ -364,7 +364,7 @@
         </form>
         <!-- Fallback optional: link yang memanggil submit form tanpa buka GET /logout (menghindari 419) -->
         <div class="mt-2 text-center">
-          <a href="{{ route('logout.get') }}" class="text-xs text-red-600 hover:underline">(Klik sini jika tombol tidak bekerja)</a>
+          <a href="<?php echo e(route('logout.get')); ?>" class="text-xs text-red-600 hover:underline">(Klik sini jika tombol tidak bekerja)</a>
         </div>
       </div>
     </aside>
@@ -374,8 +374,8 @@
         <div class="flex items-center justify-between gap-3">
           <!-- Title (Kiri) - Hidden on mobile -->
           <div class="hidden md:block">
-            <h1 class="text-xl md:text-2xl font-bold text-white drop-shadow-lg">@yield('title')</h1>
-            <p class="text-xs md:text-sm text-orange-100 font-medium">@yield('subtitle', 'Sistem Peminjaman Ruangan')</p>
+            <h1 class="text-xl md:text-2xl font-bold text-white drop-shadow-lg"><?php echo $__env->yieldContent('title'); ?></h1>
+            <p class="text-xs md:text-sm text-orange-100 font-medium"><?php echo $__env->yieldContent('subtitle', 'Sistem Peminjaman Ruangan'); ?></p>
           </div>
           
           <!-- Spacer untuk mobile agar menu tetap di kanan -->
@@ -390,13 +390,14 @@
             </button>
             
             <!-- User Profile Dropdown (Hanya untuk Petugas & User) -->
-            @php $userRole = Auth::user()->role ?? 1; @endphp
-            @if($userRole == 2 || $userRole == 3)
+            <?php $userRole = Auth::user()->role ?? 1; ?>
+            <?php if($userRole == 2 || $userRole == 3): ?>
             <div class="relative" x-data="{ profileOpen: false }" @click.away="profileOpen = false">
               <button @click="profileOpen = !profileOpen" 
                       class="flex items-center gap-1.5 bg-white bg-opacity-20 backdrop-blur-sm px-2 py-2 rounded-xl hover:bg-opacity-30 transition-all group">
                 <div class="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white text-sm md:text-base font-bold shadow-lg border-2 border-white/50 group-hover:scale-110 transition-transform">
-                  {{ strtoupper(substr(Auth::user()->nama ?? 'U', 0, 1)) }}
+                  <?php echo e(strtoupper(substr(Auth::user()->nama ?? 'U', 0, 1))); ?>
+
                 </div>
                 <i class="fas fa-chevron-down text-white text-xs transition-transform duration-300" :class="{ 'rotate-180': profileOpen }"></i>
               </button>
@@ -415,12 +416,14 @@
                 <div class="gradient-bg px-4 py-4">
                   <div class="flex items-center gap-3">
                     <div class="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center text-white text-lg font-bold border-2 border-white/50">
-                      {{ strtoupper(substr(Auth::user()->nama ?? 'U', 0, 1)) }}
+                      <?php echo e(strtoupper(substr(Auth::user()->nama ?? 'U', 0, 1))); ?>
+
                     </div>
                     <div>
-                      <p class="text-sm font-bold text-white">{{ Auth::user()->nama ?? 'User' }}</p>
+                      <p class="text-sm font-bold text-white"><?php echo e(Auth::user()->nama ?? 'User'); ?></p>
                       <p class="text-xs text-orange-100 font-medium">
-                        {{ $userRole==2?'Petugas':'Pengguna' }}
+                        <?php echo e($userRole==2?'Petugas':'Pengguna'); ?>
+
                       </p>
                     </div>
                   </div>
@@ -429,7 +432,7 @@
                 <!-- Menu Items -->
                 <div class="py-2 px-3 space-y-2">
                   <!-- Edit Profile -->
-                  <a href="{{ route('profile.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-700 hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 transition-all group">
+                  <a href="<?php echo e(route('profile.index')); ?>" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-700 hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 transition-all group">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-100 to-amber-100 flex items-center justify-center group-hover:shadow-md transition-shadow">
                       <i class="fas fa-user-circle text-orange-600 text-lg"></i>
                     </div>
@@ -441,26 +444,28 @@
                 </div>
               </div>
             </div>
-            @else
+            <?php else: ?>
             <!-- Display untuk Admin (tanpa dropdown) -->
             <div class="flex items-center gap-2 bg-white bg-opacity-20 backdrop-blur-sm px-3 py-2 rounded-xl">
               <div class="text-right hidden md:block">
-                <p class="text-xs font-bold text-white leading-tight">{{ Auth::user()->nama ?? 'Admin' }}</p>
+                <p class="text-xs font-bold text-white leading-tight"><?php echo e(Auth::user()->nama ?? 'Admin'); ?></p>
                 <p class="text-[10px] text-orange-100 font-medium">Administrator</p>
               </div>
               <div class="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white text-sm md:text-base font-bold shadow-lg border-2 border-white/50">
-                {{ strtoupper(substr(Auth::user()->nama ?? 'A', 0, 1)) }}
+                <?php echo e(strtoupper(substr(Auth::user()->nama ?? 'A', 0, 1))); ?>
+
               </div>
             </div>
-            @endif
+            <?php endif; ?>
           </div>
         </div>
       </header>
 
       <main class="flex-1 overflow-y-auto p-4 md:p-8 bg-gradient-to-br from-orange-50 to-amber-50">
-        @yield('content')
+        <?php echo $__env->yieldContent('content'); ?>
       </main>
     </div>
   </div>
 </body>
 </html>
+<?php /**PATH C:\Users\M S I\P3-UKK\resources\views/layouts/admin.blade.php ENDPATH**/ ?>

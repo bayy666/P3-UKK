@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\AuthController;
+use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\Web\BookingController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\ProfileController;
@@ -21,6 +22,7 @@ Route::get('/', function () {
 
 // (Dihapus) Test route - tidak diperlukan di produksi
 
+
 // Rute autentikasi
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
@@ -29,6 +31,18 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.po
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Fallback: izinkan GET /logout untuk mencegah error jika ada link GET yang terpasang
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout.get');
+
+// Forgot password (reset password via email)
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->name('password.request');
+Route::post('/forgot-password', function (\Illuminate\Http\Request $request) {
+    $request->validate(['email' => 'required|email']);
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+    return back()->with('status', __($status));
+})->name('password.email');
 
 // Rute terproteksi - Memerlukan autentikasi
 Route::middleware(['auth'])->group(function () {

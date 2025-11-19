@@ -42,7 +42,7 @@ class ProfileController extends Controller
             'email' => [
                 'required',
                 'email',
-                Rule::unique('user', 'email')->ignore($user->id_user, 'id_user'),
+                Rule::unique('users', 'email')->ignore($user->id_user, 'id_user'),
             ],
         ];
         

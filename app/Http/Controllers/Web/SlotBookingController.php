@@ -144,10 +144,13 @@ class SlotBookingController extends Controller
     public function show($id)
     {
         $room = Room::findOrFail($id);
-        // Tanggal awal = hari ini; build 14 hari ke depan
+        // Tanggal awal = hari ini; build sampai 31 Desember 2026
         $days = [];
         $start = Carbon::today();
-        for ($i=0; $i<14; $i++) {
+        $end = Carbon::create(2026, 12, 31);
+        $totalDays = $start->diffInDays($end) + 1;
+        
+        for ($i=0; $i<$totalDays; $i++) {
             $d = $start->copy()->addDays($i);
             $days[] = [
                 'date' => $d->toDateString(),

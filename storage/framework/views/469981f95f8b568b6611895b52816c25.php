@@ -1,12 +1,11 @@
-@extends('layouts.admin')
-@section('title', 'Pilih Jadwal Booking')
-@section('content')
-<div class="max-w-5xl mx-auto space-y-6" x-data="slotPicker()" x-init="init({{ $room->id_room }})">
+<?php $__env->startSection('title', 'Pilih Jadwal Booking'); ?>
+<?php $__env->startSection('content'); ?>
+<div class="max-w-5xl mx-auto space-y-6" x-data="slotPicker()" x-init="init(<?php echo e($room->id_room); ?>)">
   <div class="text-center space-y-4">
     <div class="w-16 h-16 rounded-full mx-auto flex items-center justify-center text-white text-2xl shadow-lg" style="background:linear-gradient(135deg,#c2410c,#ea580c)"><i class="fas fa-calendar-check"></i></div>
     <div class="space-y-1">
       <h1 class="text-4xl font-extrabold tracking-tight text-brown-700">Pilih Jadwal Booking</h1>
-      <p class="text-sm text-gray-600 font-medium">{{ $room->nama_room }} • Operasional <span class="font-semibold">06:00 - 24:00</span></p>
+      <p class="text-sm text-gray-600 font-medium"><?php echo e($room->nama_room); ?> • Operasional <span class="font-semibold">06:00 - 24:00</span></p>
       <p class="text-xs text-gray-500">Weekend: Jumat, Sabtu, Minggu | Weekday: Senin - Kamis</p>
     </div>
     <!-- Pricing chips removed per request -->
@@ -119,20 +118,20 @@
   </div>
 
   <!-- Ringkasan (step 1) -->
-  <form method="GET" action="{{ route('user.slot-booking.form') }}" class="bg-white rounded-xl shadow p-5 space-y-5">
+  <form method="GET" action="<?php echo e(route('user.slot-booking.form')); ?>" class="bg-white rounded-xl shadow p-5 space-y-5">
     <h2 class="font-semibold text-brown-700 flex items-center gap-2"><i class="fas fa-file-alt text-orange-600"></i> Ringkasan Booking</h2>
-    <input type="hidden" name="id_room" value="{{ $room->id_room }}">
+    <input type="hidden" name="id_room" value="<?php echo e($room->id_room); ?>">
     <input type="hidden" name="tanggal" :value="date">
     <input type="hidden" name="jam_mulai" :value="start">
     <input type="hidden" name="jam_selesai" :value="end">
     <div class="text-sm grid grid-cols-2 gap-3">
-      <div>Ruangan:</div><div class="font-semibold">{{ $room->nama_room }}</div>
+      <div>Ruangan:</div><div class="font-semibold"><?php echo e($room->nama_room); ?></div>
       <div>Tanggal:</div><div class="font-semibold" x-text="date ? formatDate(date) : '-'"></div>
       <div>Waktu:</div><div class="font-semibold" x-text="start && end ? start+' - '+end : '-'"></div>
     <div>Durasi:</div><div class="font-semibold" x-text="start && end ? (parseInt(end)-parseInt(start)) + ' jam' : '-' "></div>
     </div>
     <div class="flex justify-between gap-2">
-      <a href="{{ route('user.slot-booking.index') }}" class="px-5 py-2 rounded-lg bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition">&larr; Kembali</a>
+      <a href="<?php echo e(route('user.slot-booking.index')); ?>" class="px-5 py-2 rounded-lg bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition">&larr; Kembali</a>
       <button type="submit" class="px-5 py-2 rounded-lg text-white text-sm font-semibold shadow" :disabled="!canSubmit()" :class="canSubmit() ? 'bg-gradient-to-r from-orange-600 to-amber-500 hover:brightness-110' : 'bg-gray-300 cursor-not-allowed'">Lanjutkan ke Form Booking</button>
     </div>
   </form>
@@ -142,7 +141,7 @@
 function slotPicker(){
   return {
     roomId: null,
-    allDates: @json($days), visibleDates: [], page:0, date:null,
+    allDates: <?php echo json_encode($days, 15, 512) ?>, visibleDates: [], page:0, date:null,
     hourSlots:[], loading:false, blocked:false, errorMsg:null,
     start:null, end:null, // string 'HH:MM'
     selStart:null, selEnd:null, // numeric hours
@@ -175,7 +174,7 @@ function slotPicker(){
     fetch(){
       if(!this.roomId || !this.date){ return; }
       this.loading=true; this.errorMsg=null;
-      fetch(`{{ route('user.slot-booking.available') }}?id_room=${this.roomId}&tanggal=${this.date}`,
+      fetch(`<?php echo e(route('user.slot-booking.available')); ?>?id_room=${this.roomId}&tanggal=${this.date}`,
         {credentials:'same-origin', headers:{'Accept':'application/json'}})
       .then(async r=>{
         if(!r.ok){
@@ -265,7 +264,7 @@ function slotPicker(){
       const idx = this.allDates.findIndex(d=>d.date===this.date);
       for(let i=idx+1; i<this.allDates.length; i++){
         const next = this.allDates[i].date; this.date = next; this.loading=true;
-        return fetch(`{{ route('user.slot-booking.available') }}?id_room=${this.roomId}&tanggal=${next}`)
+        return fetch(`<?php echo e(route('user.slot-booking.available')); ?>?id_room=${this.roomId}&tanggal=${next}`)
           .then(r=>r.json()).then(j=>{ this.loading=false; this.blocked=j.blocked; if(j.blocked){ return this.autoNextAvailable(); } this.buildSlots(j); })
           .catch(()=>{ this.loading=false; });
       }
@@ -301,4 +300,5 @@ function slotPicker(){
   }
 }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\M S I\P3-UKK\resources\views/user/slot-booking/show.blade.php ENDPATH**/ ?>

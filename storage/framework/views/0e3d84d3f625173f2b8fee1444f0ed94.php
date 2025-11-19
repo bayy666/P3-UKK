@@ -27,26 +27,28 @@
     <div class="bg-white rounded-2xl shadow-2xl p-8 border border-orange-100">
       <h2 class="text-2xl font-bold mb-6 text-center" style="color: #5A3A1A;">Masuk ke Akun Anda</h2>
 
-      @if(session('success'))
+      <?php if(session('success')): ?>
       <div class="bg-emerald-50 border-l-4 border-emerald-500 text-emerald-700 px-4 py-3 rounded-lg mb-4">
         <div class="flex items-center">
           <i class="fas fa-check-circle mr-2"></i>
-          {{ session('success') }}
+          <?php echo e(session('success')); ?>
+
         </div>
       </div>
-      @endif
+      <?php endif; ?>
 
-      @if($errors->any())
+      <?php if($errors->any()): ?>
       <div class="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg mb-4">
         <div class="flex items-center">
           <i class="fas fa-exclamation-circle mr-2"></i>
-          {{ $errors->first() }}
+          <?php echo e($errors->first()); ?>
+
         </div>
       </div>
-      @endif
+      <?php endif; ?>
 
-      <form method="POST" action="{{ route('login') }}" autocomplete="off" id="loginForm">
-        @csrf
+      <form method="POST" action="<?php echo e(route('login')); ?>" autocomplete="off" id="loginForm">
+        <?php echo csrf_field(); ?>
         
         <div class="mb-5">
           <label class="block font-semibold mb-2" style="color: #5A3A1A;">
@@ -79,24 +81,24 @@
                  placeholder="Masukkan password">
         </div>
 
-        <button type="submit" class="w-full gradient-bg text-white font-bold py-3 rounded-xl transition transform hover:scale-[1.02] hover:shadow-2xl flex items-center justify-center" onclick="this.form.querySelector('input[name=_token]')?.setAttribute('value','{{ csrf_token() }}')">
+        <button type="submit" class="w-full gradient-bg text-white font-bold py-3 rounded-xl transition transform hover:scale-[1.02] hover:shadow-2xl flex items-center justify-center" onclick="this.form.querySelector('input[name=_token]')?.setAttribute('value','<?php echo e(csrf_token()); ?>')">
           <i class="fas fa-sign-in-alt mr-2"></i>
           Masuk
         </button>
       </form>
 
       <div class="mt-6 text-center">
-        <a href="{{ route('password.request') }}" class="text-orange-600 hover:underline font-semibold text-sm">Lupa password?</a>
-        <p class="text-amber-700 mt-2">Belum punya akun? 
-          <a href="{{ route('register') }}" class="font-bold hover:underline" style="color: #D2691E;">Daftar Sekarang</a>
+        <p class="text-amber-700">Belum punya akun? 
+          <a href="<?php echo e(route('register')); ?>" class="font-bold hover:underline" style="color: #D2691E;">Daftar Sekarang</a>
         </p>
       </div>
     </div>
 
     <!-- Footer -->
     <div class="text-center mt-6 text-amber-700">
-      <p class="text-sm">&copy; {{ date('Y') }} RoomBook. All rights reserved.</p>
+      <p class="text-sm">&copy; <?php echo e(date('Y')); ?> RoomBook. All rights reserved.</p>
     </div>
   </div>
 </body>
 </html>
+<?php /**PATH C:\Users\M S I\P3-UKK\resources\views/auth/login.blade.php ENDPATH**/ ?>
