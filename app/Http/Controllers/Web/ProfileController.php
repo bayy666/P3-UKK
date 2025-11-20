@@ -12,31 +12,27 @@ use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
-    /**
-     * Tampilkan halaman profil pengguna
-     */
+    
     public function index()
     {
         $user = Auth::user();
         
-        // Tampilkan halaman untuk semua role, tapi tampilan berbeda
-        // User biasa (role 3) bisa edit, admin/petugas hanya melihat info
+        
+        
         return view('profile.index', compact('user'));
     }
 
-    /**
-     * Update informasi profil pengguna (gabungan profil + password)
-     */
+    
     public function update(Request $request)
     {
         $user = Auth::user();
         
-        // Hanya izinkan user biasa (role 3)
+       
         if ($user->role !== 3) {
             return redirect()->route('dashboard')->with('error', 'Akses ditolak. Fitur edit profil hanya untuk pengguna biasa.');
         }
         
-        // Validasi dasar
+        
         $rules = [
             'nama' => 'required|string|max:255',
             'email' => [
@@ -46,7 +42,7 @@ class ProfileController extends Controller
             ],
         ];
         
-        // Validasi password jika diisi
+        
         if ($request->filled('current_password') || $request->filled('new_password')) {
             $rules['current_password'] = 'required';
             $rules['new_password'] = 'required|string|min:6|confirmed';
@@ -54,11 +50,11 @@ class ProfileController extends Controller
         
         $request->validate($rules);
         
-        // Update profil
+        
         $user->nama = $request->nama;
         $user->email = $request->email;
         
-        // Update password jika diisi
+        
         if ($request->filled('current_password')) {
             // Verifikasi password saat ini
             if (!Hash::check($request->current_password, $user->password)) {
@@ -78,10 +74,7 @@ class ProfileController extends Controller
         return redirect()->route('profile.index')->with('success', $message);
     }
 
-    /**
-     * Update password pengguna
-     */
-    public function updatePassword(Request $request)
+        public function updatePassword(Request $request)
     {
         $request->validate([
             'current_password' => 'required',
@@ -90,22 +83,19 @@ class ProfileController extends Controller
         
         $user = Auth::user();
         
-        // Verifikasi password saat ini
+        
         if (!Hash::check($request->current_password, $user->password)) {
             return redirect()->back()->with('error', 'Password saat ini tidak sesuai.');
         }
         
-        // Update password
+        
         $user->password = Hash::make($request->new_password);
         $user->save();
         
         return redirect()->route('profile.index')->with('success', 'Password berhasil diperbarui!');
     }
 
-    /**
-     * Update informasi petugas
-     */
-    public function updateStaff(Request $request)
+       public function updateStaff(Request $request)
     {
         $user = Auth::user();
         

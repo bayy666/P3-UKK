@@ -13,39 +13,37 @@ use Illuminate\Support\Facades\Auth;
 
 class BookingController extends BaseController
 {
-    /**
-     * Helper: Ambil data petugas berdasarkan user yang login
-     */
+    
     protected function getCurrentPetugas()
     {
         return Petugas::where('id_user', optional(Auth::user())->id)->first();
     }
 
-    // Daftar peminjaman
+   
     public function index()
     {
         if ($redirect = $this->authorizeRoles([1, 2])) {
             return $redirect;
         }
         
-        // Admin dan Petugas dapat melihat semua peminjaman
-        // Petugas bisa handle booking dari siapa saja (tidak harus yang assigned ke dia)
+      
+        
         $allBookings = Booking::with(['room', 'user', 'petugas.user'])->latest()->get();
         
-        // Filter berdasarkan status untuk tabs
+       
         $pendingBookings = $allBookings->where('status', 'proses')->values();
         $approvedBookings = $allBookings->where('status', 'diterima')->values();
         $rejectedBookings = $allBookings->where('status', 'ditolak')->values();
         
-        // Hitung jumlah per status
+        
         $pendingCount = $pendingBookings->count();
         $approvedCount = $approvedBookings->count();
         $rejectedCount = $rejectedBookings->count();
         $allCount = $allBookings->count();
         
-        // Tampilkan view berbeda untuk admin vs petugas
+        
         if (Auth::user()->role == 1) {
-            // Admin melihat tampilan dengan tab dan ringkasan
+            
             return view('bookings.admin', compact(
                 'pendingBookings',
                 'approvedBookings',
@@ -57,10 +55,9 @@ class BookingController extends BaseController
                 'allCount'
             ));
         } else {
-            // Petugas menggunakan tampilan tabel sederhana yang mengharapkan variabel `$bookings`
-            // Karena kebijakan: petugas bisa menangani booking siapa saja, kirim semua data
+            
             $bookings = $allBookings;
-            $rooms = Room::orderBy('nama_room')->get(); // Semua ruangan untuk filter
+            $rooms = Room::orderBy('nama_room')->get(); 
             return view('bookings.index', compact('bookings', 'rooms'));
         }
     }
@@ -70,7 +67,7 @@ class BookingController extends BaseController
     {
         $booking = Booking::with(['room', 'user', 'petugas.user'])->findOrFail($id);
         
-        // Petugas hanya dapat melihat peminjaman yang dia tangani
+        
         if (Auth::user()->role == 2) {
             $petugas = $this->getCurrentPetugas();
             
@@ -83,7 +80,7 @@ class BookingController extends BaseController
         return view('bookings.show', compact('booking'));
     }
 
-    // Form edit peminjaman
+   
     public function edit($id)
     {
         $booking = Booking::findOrFail($id);
@@ -91,7 +88,7 @@ class BookingController extends BaseController
         $users = User::where('role', 3)->get();
         $petugases = Petugas::all();
         
-        // Petugas hanya dapat mengubah peminjaman yang dia tangani
+        
         if (Auth::user()->role == 2) {
             $petugas = $this->getCurrentPetugas();
             
@@ -104,12 +101,12 @@ class BookingController extends BaseController
         return view('bookings.edit', compact('booking', 'rooms', 'users', 'petugases'));
     }
 
-    // Proses update peminjaman
+    
     public function update(Request $request, $id)
     {
         $booking = Booking::findOrFail($id);
         
-        // Petugas hanya dapat mengubah peminjaman yang dia tangani
+        
         if (Auth::user()->role == 2) {
             $petugas = $this->getCurrentPetugas();
             
@@ -118,7 +115,7 @@ class BookingController extends BaseController
                     ->with('error', 'Anda tidak memiliki izin untuk mengubah peminjaman ini.');
             }
             
-            // Petugas hanya dapat mengubah status dan keterangan
+            
             $request->validate([
                 'status' => 'required|string|in:proses,diterima,ditolak,selesai',
                 'keterangan' => 'required|string',
@@ -131,7 +128,7 @@ class BookingController extends BaseController
             $booking->status = $request->status;
             $booking->keterangan = $request->keterangan;
         } else {
-            // Admin dapat mengubah semua data
+            
             $request->validate([
                 'id_user' => 'required|exists:users,id',
                 'id_petugas' => 'required|exists:petugas,id_petugas',
@@ -172,12 +169,12 @@ class BookingController extends BaseController
             ->with('success', 'Peminjaman berhasil diperbarui.');
     }
 
-    // Proses hapus peminjaman
+    
     public function destroy($id)
     {
         $booking = Booking::findOrFail($id);
         
-        // Hanya admin yang dapat menghapus peminjaman
+       
         if (Auth::user()->role != 1) {
             return redirect()->route('bookings.index')
                 ->with('error', 'Anda tidak memiliki izin untuk menghapus peminjaman.');
@@ -189,10 +186,10 @@ class BookingController extends BaseController
             ->with('success', 'Peminjaman berhasil dihapus.');
     }
 
-    // Approve peminjaman
+    
     public function approve($id)
     {
-        // Hanya petugas yang bisa approve
+        
         if ($redirect = $this->authorizeRoles([2])) {
             return $redirect;
         }
@@ -200,21 +197,19 @@ class BookingController extends BaseController
         $booking = Booking::findOrFail($id);
         $room = Room::find($booking->id_room);
 
-        // Semua petugas bisa approve booking apa saja (tidak perlu cek ownership)
-        // Ini lebih fleksibel untuk tim petugas yang bekerja sama
-        // Guard ketersediaan: cek terhadap booking lain & jadwal reguler menggunakan helper Room::isAvailable
+        
         if ($room && !$room->isAvailable($booking->tanggal_mulai, $booking->tanggal_selesai, $booking->id_booking)) {
             return redirect()->route('bookings.index')
                 ->with('error', 'Tidak dapat menyetujui: waktu bertabrakan dengan booking lain atau Jadwal Reguler ruangan ini.');
         }
         
         $booking->status = 'diterima';
-        // Set petugas yang menyetujui bila tersedia
+       
         $petugas = Petugas::where('id_user', optional(Auth::user())->id)->first();
         if ($petugas) {
             $booking->id_petugas = $petugas->id_petugas;
         }
-        // Kosongkan alasan tolak jika sebelumnya pernah diisi
+        
         $booking->alasan_tolak = null;
         $booking->save();
         
@@ -222,24 +217,24 @@ class BookingController extends BaseController
             ->with('success', 'Peminjaman berhasil disetujui.');
     }
 
-    // Reject peminjaman
+    
     public function reject(Request $request, $id)
     {
-        // Hanya petugas yang bisa menolak
+        
         if ($redirect = $this->authorizeRoles([2])) {
             return $redirect;
         }
         
         $booking = Booking::findOrFail($id);
 
-        // Validasi alasan penolakan jika tersedia di form
+        
         $request->validate([
             'alasan_tolak' => 'required|string',
         ], [
             'alasan_tolak.required' => 'Alasan penolakan wajib diisi.',
         ]);
         
-        // Semua petugas bisa reject booking apa saja (tidak perlu cek ownership)
+        
         
         $booking->status = 'ditolak';
         $booking->alasan_tolak = $request->input('alasan_tolak');
@@ -249,12 +244,12 @@ class BookingController extends BaseController
             ->with('success', 'Peminjaman berhasil ditolak.');
     }
 
-    // Complete peminjaman
+    
     public function complete($id)
     {
         $booking = Booking::findOrFail($id);
         
-        // Petugas hanya dapat menyelesaikan peminjaman yang dia tangani
+        
         if (Auth::user()->role == 2) {
             $petugas = $this->getCurrentPetugas();
             

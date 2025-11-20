@@ -10,21 +10,21 @@ class Booking extends Model
     use HasFactory;
 
     /**
-     * Tabel yang terkait dengan model.
+     * 
      *
      * @var string
      */
     protected $table = 'booking';
 
     /**
-     * Kunci utama untuk model.
+     *
      *
      * @var string
      */
     protected $primaryKey = 'id_booking';
 
     /**
-     * Atribut yang dapat diisi secara massal.
+     * 
      *
      * @var array<int, string>
      */
@@ -43,7 +43,7 @@ class Booking extends Model
     ];
 
     /**
-     * Atribut yang harus dikonversi.
+     * 
      *
      * @var array<string, string>
      */
@@ -54,7 +54,7 @@ class Booking extends Model
     ];
 
     /**
-     * Mendapatkan pengguna yang memiliki peminjaman.
+     * 
      */
     public function user()
     {
@@ -62,7 +62,7 @@ class Booking extends Model
     }
 
     /**
-     * Mendapatkan petugas yang memiliki peminjaman.
+     *
      */
     public function petugas()
     {
@@ -70,7 +70,7 @@ class Booking extends Model
     }
 
     /**
-     * Mendapatkan ruangan yang terkait dengan peminjaman.
+     *
      */
     public function room()
     {

@@ -10,9 +10,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ReportController extends BaseController
 {
-    /**
-     * Halaman laporan peminjaman (admin & petugas)
-     */
+  
     public function index(Request $request)
     {
         if ($redirect = $this->authorizeStaff()) {
@@ -42,12 +40,12 @@ class ReportController extends BaseController
             $query->where('tanggal_mulai', '<=', $filters['to']);
         }
 
-        // Filter ruangan
+      
         if ($filters['room']) {
             $query->where('id_room', $filters['room']);
         }
 
-        // Filter status
+       
         if ($filters['status']) {
             $query->where('status', $filters['status']);
         }
@@ -58,9 +56,7 @@ class ReportController extends BaseController
         return view('reports.index', compact('bookings', 'rooms', 'filters'));
     }
 
-    /**
-     * Export CSV untuk laporan sesuai filter
-     */
+    
     public function export(Request $request)
     {
         if ($redirect = $this->authorizeStaff()) {
@@ -103,7 +99,7 @@ class ReportController extends BaseController
 
         return response()->streamDownload(function () use ($rows) {
             $handle = fopen('php://output', 'w');
-            // Header
+           
             fputcsv($handle, [
                 'ID', 'Tanggal Mulai', 'Tanggal Selesai', 'Ruangan', 'Peminjam', 'Petugas', 'Status', 'Keterangan'
             ]);

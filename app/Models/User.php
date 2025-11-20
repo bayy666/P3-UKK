@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -14,20 +14,20 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * Tabel yang terkait dengan model.
+     * 
      *
      * @var string
      */
     protected $table = 'users';
 
     /**
-     * Kunci utama untuk model (default Laravel adalah 'id').
-     * Tidak perlu didefinisikan karena menggunakan default Laravel.
+     * 
+     * 
      */
-    // protected $primaryKey = 'id'; // Optional, Laravel default sudah 'id'
+    // 
 
     /**
-     * Atribut yang dapat diisi secara massal.
+     * 
      *
      * @var list<string>
      */
@@ -42,7 +42,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Atribut yang harus disembunyikan untuk serialisasi.
+     *
      *
      * @var list<string>
      */
@@ -52,7 +52,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Override untuk login dengan username atau email
+     * 
      */
     public function findForPassport($username)
     {
@@ -60,29 +60,27 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the name of the unique identifier for the user.
+     * 
      *
      * @return string
      */
     public function getAuthIdentifierName()
     {
-        return 'username'; // Default ke username untuk user biasa
+        return 'username'; 
     }
 
     /**
-     * Mendapatkan atribut yang harus dikonversi.
+     *
      *
      * @return array<string, string>
      */
-    // Catatan: hashing password dilakukan eksplisit via Hash::make di controller/seeder.
-    // Jangan gunakan cast 'hashed' agar tidak terjadi double-hash.
-    protected function casts(): array
+        protected function casts(): array
     {
         return [];
     }
 
     /**
-     * Mendapatkan petugas yang terkait dengan pengguna.
+     * 
      */
     public function petugas()
     {
@@ -90,7 +88,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Mendapatkan peminjaman untuk pengguna.
+     *
      */
     public function bookings()
     {
@@ -98,7 +96,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Mendapatkan jadwal reguler untuk pengguna.
+     *                           
      */
     public function jadwalRegulers()
     {

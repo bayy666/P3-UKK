@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class RoomController extends BaseController
 {
-    // Daftar ruangan
+    
     public function index()
     {
         if ($redirect = $this->authorizeRoles([1])) {
@@ -18,7 +18,7 @@ class RoomController extends BaseController
         return view('rooms.index', compact('rooms'));
     }
 
-    // Form tambah ruangan
+    
     public function create()
     {
         if ($redirect = $this->authorizeRoles([1])) {
@@ -28,7 +28,7 @@ class RoomController extends BaseController
         return view('rooms.create');
     }
 
-    // Proses tambah ruangan
+    
     public function store(Request $request)
     {
         if ($redirect = $this->authorizeRoles([1])) {
@@ -53,7 +53,7 @@ class RoomController extends BaseController
             ->with('success', 'Ruangan berhasil ditambahkan.');
     }
 
-    // Form edit ruangan
+    
     public function edit($id)
     {
         if ($redirect = $this->authorizeRoles([1])) {
@@ -64,8 +64,7 @@ class RoomController extends BaseController
         return view('rooms.edit', compact('room'));
     }
 
-    // Proses update ruangan
-    public function update(Request $request, $id)
+        public function update(Request $request, $id)
     {
         if ($redirect = $this->authorizeRoles([1])) {
             return $redirect;
@@ -90,7 +89,7 @@ class RoomController extends BaseController
             ->with('success', 'Ruangan berhasil diperbarui.');
     }
 
-    // Proses hapus ruangan
+    
     public function destroy($id)
     {
         if ($redirect = $this->authorizeRoles([1])) {
@@ -99,8 +98,7 @@ class RoomController extends BaseController
         
         $room = Room::findOrFail($id);
 
-        // Hapus paksa dengan mengandalkan ON DELETE CASCADE pada relasi
-        // (booking dan jadwal_reguler sudah diset cascade di migrasi)
+        
         $bookingsCount = $room->bookings()->count();
         $regulerCount = $room->jadwalRegulers()->count();
 

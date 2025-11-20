@@ -11,10 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class JadwalRegulerController extends BaseController
 {
-    /**
-     * Tampilkan daftar jadwal reguler.
-     */
-    public function index(Request $request)
+        public function index(Request $request)
     {
         if ($redirect = $this->authorizeRoles([1, 2])) {
             return $redirect;
@@ -27,12 +24,12 @@ class JadwalRegulerController extends BaseController
 
         $query = JadwalReguler::with(['room', 'user'])->orderBy('tanggal_mulai', 'desc');
 
-        // Filter ruangan
+        
         if ($roomId) {
             $query->where('id_room', $roomId);
         }
 
-        // Pencarian nama/keterangan
+        
         if ($q !== '') {
             $query->where(function ($qb) use ($q) {
                 $qb->where('nama_reguler', 'like', "%" . $q . "%")
@@ -40,7 +37,7 @@ class JadwalRegulerController extends BaseController
             });
         }
 
-        // Filter rentang tanggal (overlap dgn rentang yang diminta)
+       
         if ($from && $to) {
             $query->where(function ($qb) use ($from, $to) {
                 $qb->whereDate('tanggal_mulai', '<=', $to)
@@ -58,10 +55,7 @@ class JadwalRegulerController extends BaseController
         return view('jadwal-reguler.index', compact('items', 'rooms', 'roomId', 'q', 'from', 'to'));
     }
 
-    /**
-     * Form tambah jadwal reguler.
-     */
-    public function create()
+        public function create()
     {
         if ($redirect = $this->authorizeRoles([1, 2])) {
             return $redirect;
@@ -71,10 +65,7 @@ class JadwalRegulerController extends BaseController
         return view('jadwal-reguler.create', compact('rooms'));
     }
 
-    /**
-     * Simpan jadwal reguler.
-     */
-    public function store(Request $request)
+        public function store(Request $request)
     {
         if ($redirect = $this->authorizeRoles([1, 2])) {
             return $redirect;
@@ -88,7 +79,7 @@ class JadwalRegulerController extends BaseController
             'keterangan' => 'nullable|string',
         ]);
 
-        // Cek tabrakan dengan jadwal reguler lain
+        
         $overlapReguler = JadwalReguler::where('id_room', $validated['id_room'])
             ->where(function ($q) use ($validated) {
                 $q->where('tanggal_mulai', '<=', $validated['tanggal_selesai'])
@@ -100,7 +91,7 @@ class JadwalRegulerController extends BaseController
             return back()->withInput()->withErrors(['tanggal_mulai' => 'Rentang tanggal bertabrakan dengan jadwal reguler lain di ruangan ini.']);
         }
 
-        // Cek tabrakan dengan booking yang ada (proses/diterima)
+       
         $overlapBooking = Booking::where('id_room', $validated['id_room'])
             ->whereIn('status', ['proses', 'diterima'])
             ->where(function ($q) use ($validated) {
@@ -125,9 +116,7 @@ class JadwalRegulerController extends BaseController
         return redirect()->route('jadwal-reguler.index')->with('success', 'Jadwal reguler berhasil dibuat.');
     }
 
-    /**
-     * Form edit jadwal reguler.
-     */
+    
     public function edit($id)
     {
         if ($redirect = $this->authorizeRoles([1, 2])) {
@@ -139,9 +128,6 @@ class JadwalRegulerController extends BaseController
         return view('jadwal-reguler.edit', compact('item', 'rooms'));
     }
 
-    /**
-     * Update jadwal reguler.
-     */
     public function update(Request $request, $id)
     {
         if ($redirect = $this->authorizeRoles([1, 2])) {
@@ -158,7 +144,7 @@ class JadwalRegulerController extends BaseController
             'keterangan' => 'nullable|string',
         ]);
 
-        // Cek tabrakan dengan jadwal reguler lain (exclude diri sendiri)
+        
         $overlapReguler = JadwalReguler::where('id_room', $validated['id_room'])
             ->where('id_reguler', '!=', $item->id_reguler)
             ->where(function ($q) use ($validated) {
@@ -195,9 +181,7 @@ class JadwalRegulerController extends BaseController
         return redirect()->route('jadwal-reguler.index')->with('success', 'Jadwal reguler berhasil diperbarui.');
     }
 
-    /**
-     * Hapus jadwal reguler.
-     */
+    
     public function destroy($id)
     {
         if ($redirect = $this->authorizeRoles([1, 2])) {

@@ -20,7 +20,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// (Dihapus) Test route - tidak diperlukan di produksi
+
 
 
 // Rute autentikasi
@@ -32,7 +32,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Fallback: izinkan GET /logout untuk mencegah error jika ada link GET yang terpasang
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout.get');
 
-// Forgot password (reset password via email)
+
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 })->name('password.request');
@@ -44,12 +44,12 @@ Route::post('/forgot-password', function (\Illuminate\Http\Request $request) {
     return back()->with('status', __($status));
 })->name('password.email');
 
-// Rute terproteksi - Memerlukan autentikasi
+
 Route::middleware(['auth'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
-    // Jadwal Ruang (semua peran)
+    // Jadwal Ruang 
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
     
     // Profil
@@ -58,7 +58,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
     Route::put('/profile/staff', [ProfileController::class, 'updateStaff'])->name('profile.staff-update');
 
-    // Rute untuk user (role 3)
+    // Rute untuk user 
     Route::prefix('user')->group(function () {
         Route::get('/slot-booking', [SlotBookingController::class, 'index'])->name('user.slot-booking.index');
         Route::get('/slot-booking/room/{id}', [SlotBookingController::class, 'show'])->name('user.slot-booking.show');
@@ -94,7 +94,7 @@ Route::middleware(['auth'])->group(function () {
     // Manajemen user
     Route::resource('users', UserController::class);
 
-    // Laporan (admin & petugas) - kontrol akses di controller
+    // Laporan (admin & petugas) 
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::get('/reports/export', [ReportController::class, 'export'])->name('reports.export');
 });

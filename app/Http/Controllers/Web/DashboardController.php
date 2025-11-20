@@ -11,7 +11,7 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         
-        // Dashboard untuk pengguna biasa (role 3)
+        
         if ($user->role == 3) {
             $myBookings = \App\Models\Booking::where('id_user', $user->id)->count();
             $pendingBookings = \App\Models\Booking::where('id_user', $user->id)->where('status', 'proses')->count();
@@ -21,7 +21,7 @@ class DashboardController extends Controller
             return view('dashboard.user', compact('myBookings', 'pendingBookings', 'approvedBookings', 'totalRooms'));
         }
         
-        // Dashboard untuk petugas (role 2)
+        
         if ($user->role == 2) {
             $petugas = \App\Models\Petugas::where('id_user', $user->id)->first();
             $assignedId = $petugas->id_petugas ?? null;
@@ -34,13 +34,13 @@ class DashboardController extends Controller
             return view('dashboard.petugas', compact('pendingBookings', 'approvedBookings', 'rejectedBookings', 'totalRooms'));
         }
 
-        // Dashboard untuk admin (role 1)
+        
         $totalRuangan = \App\Models\Room::count();
         $totalPengguna = \App\Models\User::where('role', 3)->count();
         $peminjamanHariIni = \App\Models\Booking::whereDate('created_at', today())->count();
         $totalPeminjaman = \App\Models\Booking::count();
         
-        // Pass dengan nama variable yang benar
+       
         $roomsCount = $totalRuangan;
         $usersCount = $totalPengguna;
         $todayBookings = $peminjamanHariIni;
