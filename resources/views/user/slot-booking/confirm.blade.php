@@ -7,7 +7,7 @@
   body * { visibility: hidden !important; }
   /* Tampilkan hanya area bukti */
   #print-area, #print-area * { visibility: visible !important; }
-  /* Rapikan tata letak saat cetak */
+  /* Rapikan tata letak saat cetak */g
   #print-area { position: absolute; left: 0; top: 0; width: 100%; max-width: 100%; padding: 0; box-shadow: none !important; }
   .no-print, aside, nav, header, footer { display: none !important; }
   a[href]:after { content: '' !important; }

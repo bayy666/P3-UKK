@@ -39,7 +39,7 @@ Route::get('/forgot-password', function () {
 Route::post('/forgot-password', function (\Illuminate\Http\Request $request) {
     $request->validate(['email' => 'required|email']);
     $status = Password::sendResetLink(
-        $request->only('email')
+        $request->only('email') 
     );
     return back()->with('status', __($status));
 })->name('password.email');
